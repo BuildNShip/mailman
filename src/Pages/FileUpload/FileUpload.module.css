@@ -1,60 +1,84 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.first_view_container{
-    width: 100%;
-    height: 100vh;
-    background-color: #F6E1C3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    
+textarea:focus,
+input:focus {
+  outline: none;
 }
 
-.first_view{
-
-    margin: 1rem;
-    max-width: 400px;
-    background-color: #E9A178;
-    color: #A84448;
-    padding: 2rem;
-    border-radius: 10px;
+.fv_texts {
+  color: #a84448;
+  max-width: 30rem;
+  margin: 2rem;
 }
 
-.fv_heading{
-    font-family: "Montserrat", sans-serif;
-    font-size: 2.75rem;
-    font-weight: 600;
+.first_view_container {
+  max-width: 100%;
+  min-height: 100vh;
+  background-color: #f6e1c3;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.fv_tagline{
-    max-width: 100%;
-    font-family: "Poppins",sans-serif;
+.first_view {
+  margin: 1rem;
+  background-color: #a84448;
+  color: #ffffff;
+  padding: 2rem;
+  border-radius: 5px;
+  width: 20rem;
 }
 
-.row{
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
+.fv_image {
+  max-width: 20rem;
+  margin-bottom: -2rem;
 }
 
-.row label{
-    margin-bottom: 0.25rem;
-    font-family: "Montserrat", sans-serif;
+.fv_heading {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
 }
 
-.row input{
-    padding: 0.25rem 0.75rem;
-    font-family: "Poppins", sans-serif;
-    border-radius: 5px;
+.fv_tagline {
+  max-width: 100%;
+  font-size: 1.1rem;
+  font-family: "Poppins", sans-serif;
 }
 
-.row textarea{
-    padding: 0.25rem 0.75rem;
-    font-family: "Poppins", sans-serif;
-    border-radius: 5px;
-    min-height: 15rem;
+.row {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.row label {
+  margin-bottom: 0.25rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.row input {
+  font-family: "Poppins", sans-serif;
+  border-radius: 5px;
+  border: none;
+}
+
+.row textarea {
+  padding: 0.5rem 0.5rem;
+  font-family: "Poppins", sans-serif;
+  border-radius: 5px;
+  min-height: 15rem;
+}
+
+.submit_button {
+  background-color: #f6e1c3;
+  color: #a84448;
+  margin-top: 1rem;
+  font-family: "Poppins", sans-serif;
+  padding: 0.5rem 1.5rem;
+  border: none;
 }
