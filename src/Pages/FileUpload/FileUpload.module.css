@@ -3,83 +3,83 @@
   padding: 0;
 }
 
-textarea:focus,
-input:focus {
-  outline: none;
-}
-
-.fv_texts {
-  color: #a84448;
-  max-width: 30rem;
-  margin: 2rem;
+.main_container {
 }
 
 .first_view_container {
-  max-width: 100%;
-  min-height: 100vh;
   background-color: #f6e1c3;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .first_view {
-  margin: 1rem;
-  background-color: #a84448;
-  color: #ffffff;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
-  border-radius: 5px;
-  width: 20rem;
 }
 
-.fv_image {
-  max-width: 20rem;
-  margin-bottom: -2rem;
+.fv_texts {
+  max-width: 50vh;
 }
 
 .fv_heading {
   font-family: "Montserrat", sans-serif;
-  font-size: 3.5rem;
+  font-size: 3.25rem;
   font-weight: 600;
+  color: #a84448;
 }
 
 .fv_tagline {
-  max-width: 100%;
-  font-size: 1.1rem;
   font-family: "Poppins", sans-serif;
+  font-style: italic;
+  font-size: 1.05rem;
 }
 
-.row {
-  margin-top: 1rem;
+.fv_image {
+  width: 20rem;
+}
+
+.second_view_container{
+    background-color: #fff;
+}
+
+.second_view {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.row label {
-  margin-bottom: 0.25rem;
+.box_container {
+  max-width: 20rem;
+  margin: 2rem;
+}
+
+.b_heading {
   font-family: "Montserrat", sans-serif;
-}
-
-.row input {
-  padding: 0.5rem 0.5rem;
-  font-family: "Poppins", sans-serif;
-  border-radius: 5px;
-  border: none;
-}
-
-.row textarea {
-  padding: 0.5rem 0.5rem;
-  font-family: "Poppins", sans-serif;
-  border-radius: 5px;
-  min-height: 15rem;
-}
-
-.submit_button {
-  background-color: #f6e1c3;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: #a84448;
-  margin-top: 1rem;
+}
+.iconColor {
+  color: #a84448;
+}
+
+.b_tagline {
   font-family: "Poppins", sans-serif;
-  padding: 0.5rem 1.5rem;
-  border: none;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.form_view_container {
+  background-color: #f6e1c3;
+  padding: 2rem;
 }
