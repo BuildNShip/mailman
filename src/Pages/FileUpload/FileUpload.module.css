@@ -13,10 +13,10 @@
 .first_view {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
 }
@@ -42,25 +42,25 @@
   width: 20rem;
 }
 
-.second_view_container{
-    background-color: #fff;
+.second_view_container {
+  background-color: #fff;
 }
 
 .second_view {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
+  text-align: left;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
 }
 
 .box_container {
-  max-width: 20rem;
-  margin: 2rem;
+  max-width: 15rem;
+  margin-right: 1rem;
 }
 
 .b_heading {
@@ -81,5 +81,15 @@
 
 .form_view_container {
   background-color: #f6e1c3;
+  padding: 2rem;
+}
+
+.form_view {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 2rem;
 }

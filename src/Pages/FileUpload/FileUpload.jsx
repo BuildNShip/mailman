@@ -64,7 +64,7 @@ const FileUpload = () => {
         </div>
       </div>
       <div className={styles.form_view_container}>
-        <form className={styles.form_container}>
+        <form className={styles.form_view}>
           <div className={styles.row}>
             <label className={styles.form_label} htmlFor="frommail">
               Enter From Mail Address
