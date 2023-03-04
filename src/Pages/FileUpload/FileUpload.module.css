@@ -43,7 +43,14 @@
 }
 
 .second_view_container {
+  margin-top: 1rem;
   background-color: #fff;
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
 }
 
 .second_view {

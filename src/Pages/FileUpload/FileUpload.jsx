@@ -22,7 +22,7 @@ const FileUpload = () => {
     formData.append("file", file);
     console.log(formData);
     axios
-      .post("mailman.buildandship.in/api/send-mail", formData)
+      .post("https://agarjun007.pythonanywhere.com/api/send-mail", formData)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -65,9 +65,10 @@ const FileUpload = () => {
       </div>
       <div className={styles.form_view_container}>
         <form className={styles.form_view}>
+          <p className={styles.heading}>Step 1: Enter Credentials</p>
           <div className={styles.row}>
             <label className={styles.form_label} htmlFor="frommail">
-              Enter From Mail Address
+              Enter From-Mail Address
             </label>
             <input
               required
