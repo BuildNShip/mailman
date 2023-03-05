@@ -10,6 +10,7 @@ const FileUpload = () => {
   const [password, setPassword] = useState("");
   const [emailContent, setEmailContent] = useState("");
   const [subject, setSubject] = useState("");
+  const [files, setFiles] = useState([]);
   const [file, setFile] = useState();
 
   const handleSubmit = (e) => {
@@ -43,13 +44,43 @@ const FileUpload = () => {
   return (
     <div className={styles.main_container}>
       <div className={styles.first_view_container}>
-        <div className={styles.fv_texts}>
-          <img src="/fvimg.png" alt="" className={styles.fv_image} />
-          <p className={styles.fv_heading}>MailMan Mass Mailer</p>
-          <p className={styles.fv_tagline}>
-            Your go-to open source mail service for effortlessly sending group
-            emails.
-          </p>
+        <div className={styles.first_view}>
+          <img src="/fvimg.webp" alt="" className={styles.fv_image} />
+          <div className={styles.fv_texts}>
+            <p className={styles.pre_header}>
+              BuildNShip: Made for FOSS Hack'23
+            </p>
+            <p className={styles.fv_heading}>
+              Senting group emails has never been easier. Introducing Mailman.
+            </p>
+            <p className={styles.fv_tagline}>
+              Your go-to open source mail service for effortlessly sending group
+              emails.
+            </p>
+            <button className={styles.view_code}>Sent Mail</button>
+          </div>
+        </div>
+      </div>
+      <div className={styles.second_view_container}>
+        <div className={styles.second_view}>
+          <div className={styles.box_container}>
+            <p className={styles.b_heading}>Enter Your Credentials</p>
+            <p className={styles.b_tagline}>
+              Your detials aren't stored anywhere so, its very secure.
+            </p>
+          </div>
+          <div className={styles.box_container}>
+            <p className={styles.b_heading}>Enter Mail Content</p>
+            <p className={styles.b_tagline}>
+              Your detials aren't stored anywhere so, its very secure.
+            </p>
+          </div>
+          <div className={styles.box_container}>
+            <p className={styles.b_heading}>Upload CSV File</p>
+            <p className={styles.b_tagline}>
+              Your detials aren't stored anywhere so, its very secure.
+            </p>
+          </div>
         </div>
         <form className={styles.first_view}>
           <div className={styles.row}>
@@ -57,7 +88,7 @@ const FileUpload = () => {
               Enter From Mail Address
             </label>
             <input
-              required
+            required
               value={fromMail}
               onChange={(e) => {
                 setFromMail(e.target.value);
@@ -84,6 +115,7 @@ const FileUpload = () => {
             />
           </div>
 
+
           <div className={styles.row}>
             <label className={styles.form_label} htmlFor="mailsubject">
               Enter Mail Subject
@@ -93,7 +125,7 @@ const FileUpload = () => {
                 setSubject(e.target.value);
               }}
               required
-              value={subject}
+              value={password}
               className={styles.form_field}
               type="text"
               name="mailsubject"
@@ -114,28 +146,25 @@ const FileUpload = () => {
             ></textarea>
           </div>
 
-          <div className={styles.row}>
-            <label className={styles.form_label} htmlFor="file">
-              Choose CSV File
-            </label>
-            <input
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-              }}
-              required
-              className={styles.form_field}
-              type="file"
-              name="file"
-              id="file"
-              accept=".csv"
-            />
-          </div>
+          <div className={styles.rows}>
+            <div className={styles.row}>
+              <label className={styles.form_label} htmlFor="file">
+                Upload Mailing List(CSV)
+              </label>
+              <input
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
+                required
+                className={styles.form_field}
+                type="file"
+                name="file"
+                id="file"
+                accept=".csv"
+              />
+            </div>
 
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className={styles.submit_button}
-          >
+          <button type="submit" onClick={handleSubmit} className={styles.submit_button}>
             Submit
           </button>
         </form>
