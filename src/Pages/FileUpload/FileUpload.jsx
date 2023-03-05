@@ -20,7 +20,12 @@ const FileUpload = () => {
     data.append("subject", subject);
     data.append("content", emailContent);
     data.append("inputFile", file);
-    data.append("mailAttachments", files);
+    // for (let i = 0; i < files.length; i++) {
+    //   data.append("mailAttachments", files[i]);
+    // }
+
+    console.log(data);
+    console.log(files);
 
     const config = {
       method: "post",
@@ -39,11 +44,6 @@ const FileUpload = () => {
         console.log(error);
         window.alert("Mail Sending Failed Sucessfully");
       });
-  };
-
-  const handleFileChange = (event) => {
-    const selectedFiles = Array.from(event.target.files);
-    setFiles(selectedFiles);
   };
 
   return (
@@ -80,13 +80,15 @@ const FileUpload = () => {
           <div className={styles.box_container}>
             <p className={styles.b_heading}>Mail Content</p>
             <p className={styles.b_tagline}>
-              You can enter in the mail content that needs to be sent to the list of people.
+              You can enter in the mail content that needs to be sent to the
+              list of people.
             </p>
           </div>
           <div className={styles.box_container}>
             <p className={styles.b_heading}>Upload Files</p>
             <p className={styles.b_tagline}>
-              Finally, Upload the CSV file and the attachments that you want to send.
+              Finally, Upload the CSV file and the attachments that you want to
+              send.
             </p>
           </div>
         </div>
@@ -183,13 +185,14 @@ const FileUpload = () => {
               />
             </div>
 
-            <div className={styles.row}>
+            {/* <div className={styles.row}>
               <label className={styles.form_label} htmlFor="file-upload">
                 Upload Mailing Attachments(Multiple Files)
               </label>
               <input
                 onChange={(e) => {
-                  handleFileChange;
+                  setFiles([...files, ...e.target.files]);
+                  console.log(files);
                 }}
                 required
                 className={styles.form_field}
@@ -198,7 +201,7 @@ const FileUpload = () => {
                 id="file-upload"
                 accept=".png, .jpg, .jpeg"
               />
-            </div>
+            </div> */}
 
             <div className={styles.rows}>
               <button
