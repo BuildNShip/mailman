@@ -48,6 +48,7 @@
   font-size: 1.15rem;
   font-weight: 300;
   width: 80%;
+  margin: auto;
 }
 
 .view_code {
@@ -60,13 +61,10 @@
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
 }
-.fv_heading span {
-  font-weight: 00;
-}
 
 @media only screen and (min-width: 768px) {
   .fv_texts {
-    max-width: 40rem;
+    max-width: 35rem;
     text-align: left;
   }
 
@@ -76,8 +74,118 @@
 
   .fv_heading {
     font-family: "Poppins", sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     line-height: 3rem;
     color: #079d8f;
   }
+
+  .fv_tagline {
+    margin: 0;
+  }
+}
+
+/* Second View Container */
+
+.second_view {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-direction: row;
+  max-width: 1200px;
+  margin: 3rem auto;
+}
+
+.box_container {
+  display: flex;
+  max-width: 20rem;
+  flex-direction: column;
+  margin: 1rem;
+  text-align: center;
+}
+
+.b_heading {
+  font-family: "Popins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 200;
+  color: #079d8f;
+}
+
+.b_tagline {
+  font-family: "Poppins", sans-serif;
+  font-style: 1.15rem;
+}
+
+/* Third View Container */
+
+.form_view_container {
+  max-width: 1200px;
+  display: block;
+  margin: auto;
+}
+
+.form_view {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.row {
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.form_label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.form_field,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  min-width: 20rem;
+}
+
+.rows {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+textarea {
+  min-height: 10rem;
+  width: 100%;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.submit_button {
+  background-color: #079d8f;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.45rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+.submit_button:hover {
+  background-color: #077b6f;
+  cursor: pointer;
+}
+
+.submit_button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #079d8f;
 }

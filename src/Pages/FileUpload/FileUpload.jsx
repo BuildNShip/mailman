@@ -9,13 +9,14 @@ const FileUpload = () => {
   const [password, setPassword] = useState("");
   const [emailContent, setEmailContent] = useState("");
   const [subject, setSubject] = useState("");
+  const [files, setFiles] = useState([]);
   const [file, setFile] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("fromMail", fromMail);
-    formData.append("password", appId);
+    formData.append("password", subject);
     formData.append("emailContent", emailContent);
     formData.append("file", file);
     console.log(formData);
@@ -23,6 +24,11 @@ const FileUpload = () => {
       .post("https://agarjun007.pythonanywhere.com/api/send-mail", formData)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+  };
+
+  const handleFileChange = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    setFiles(selectedFiles);
   };
 
   return (
@@ -45,7 +51,7 @@ const FileUpload = () => {
           </div>
         </div>
       </div>
-      {/* <div className={styles.second_view_container}>
+      <div className={styles.second_view_container}>
         <div className={styles.second_view}>
           <div className={styles.box_container}>
             <p className={styles.b_heading}>Enter Your Credentials</p>
@@ -69,52 +75,54 @@ const FileUpload = () => {
       </div>
       <div className={styles.form_view_container}>
         <form className={styles.form_view}>
-          <div className={styles.row}>
-            <label className={styles.form_label} htmlFor="frommail">
-              Enter From-Mail Address
-            </label>
-            <input
-              required
-              value={fromMail}
-              onChange={(e) => {
-                setFromMail(e.target.value);
-              }}
-              className={styles.form_field}
-              type="email"
-              name="frommail"
-            />
-          </div>
+          <div className={styles.rows}>
+            <div className={styles.row}>
+              <label className={styles.form_label} htmlFor="frommail">
+                Enter From-Mail Address
+              </label>
+              <input
+                required
+                value={fromMail}
+                onChange={(e) => {
+                  setFromMail(e.target.value);
+                }}
+                className={styles.form_field}
+                type="email"
+                name="frommail"
+              />
+            </div>
 
-          <div className={styles.row}>
-            <label className={styles.form_label} htmlFor="password">
-              Enter Password
-            </label>
-            <input
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              required
-              value={password}
-              className={styles.form_field}
-              type="text"
-              name="password"
-            />
-          </div>
+            <div className={styles.row}>
+              <label className={styles.form_label} htmlFor="password">
+                Enter Password
+              </label>
+              <input
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                required
+                value={password}
+                className={styles.form_field}
+                type="text"
+                name="password"
+              />
+            </div>
 
-          <div className={styles.row}>
-            <label className={styles.form_label} htmlFor="mailsubject">
-              Enter Mail Subject
-            </label>
-            <input
-              onChange={(e) => {
-                setSubject(e.target.value);
-              }}
-              required
-              value={password}
-              className={styles.form_field}
-              type="text"
-              name="mailsubject"
-            />
+            <div className={styles.row}>
+              <label className={styles.form_label} htmlFor="mailsubject">
+                Enter Mail Subject
+              </label>
+              <input
+                onChange={(e) => {
+                  setSubject(e.target.value);
+                }}
+                required
+                value={password}
+                className={styles.form_field}
+                type="text"
+                name="mailsubject"
+              />
+            </div>
           </div>
 
           <div className={styles.row}>
@@ -131,23 +139,41 @@ const FileUpload = () => {
             ></textarea>
           </div>
 
-          <div className={styles.row}>
-            <label className={styles.form_label} htmlFor="file">
-              Choose CSV File
-            </label>
-            <input
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-              }}
-              required
-              className={styles.form_field}
-              type="file"
-              name="file"
-              id="file"
-              accept=".csv"
-            />
-          </div>
+          <div className={styles.rows}>
+            <div className={styles.row}>
+              <label className={styles.form_label} htmlFor="file">
+                Upload Mailing List(CSV)
+              </label>
+              <input
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
+                required
+                className={styles.form_field}
+                type="file"
+                name="file"
+                id="file"
+                accept=".csv"
+              />
+            </div>
 
+            <div className={styles.row}>
+              <label className={styles.form_label} htmlFor="file-upload">
+                Upload Mailing Attachments(Multiple Files)
+              </label>
+              <input
+                onChange={(e) => {
+                  onChange = { handleFileChange };
+                }}
+                required
+                className={styles.form_field}
+                type="file"
+                multiple
+                id="file-upload"
+                accept=".png, .jpg, .jpeg"
+              />
+            </div>
+          </div>
           <button
             type="submit"
             onClick={handleSubmit}
@@ -156,7 +182,7 @@ const FileUpload = () => {
             Submit
           </button>
         </form>
-      </div> */}
+      </div>
     </div>
   );
 };
