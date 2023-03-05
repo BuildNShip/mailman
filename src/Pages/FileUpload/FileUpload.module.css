@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  scroll-behavior: smooth;
   padding: 0;
 }
 
@@ -19,9 +20,12 @@
   flex-direction: row-reverse;
   justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
 
   margin: auto;
   max-width: 1200px;
+
+  padding: 2rem 0;
 }
 
 .fv_texts {
@@ -128,7 +132,7 @@
 }
 
 .form_view {
-  padding: 2rem 0;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -202,7 +206,7 @@ textarea {
   box-shadow: 0 0 0 2px #3176d1;
 }
 
-.fov_texts{
+.fov_texts {
   margin-bottom: 2rem;
 }
 
@@ -219,4 +223,10 @@ textarea {
   font-weight: 300;
   max-width: 30rem;
   color: #404040;
+}
+
+@media only screen and (min-width: 768px) {
+  .form_view {
+    padding: 2rem 0;
+  }
 }

@@ -63,33 +63,35 @@ const FileUpload = () => {
               Your go-to open source mail service for effortlessly sending group
               emails.
             </p>
-            <button className={styles.view_code}>Sent Mail</button>
+            <a href="#form">
+              <button className={styles.view_code}>Sent Mail</button>
+            </a>
           </div>
         </div>
       </div>
       <div className={styles.second_view_container}>
         <div className={styles.second_view}>
           <div className={styles.box_container}>
-            <p className={styles.b_heading}>Enter Your Credentials</p>
+            <p className={styles.b_heading}>Your Credentials</p>
             <p className={styles.b_tagline}>
               Your detials aren't stored anywhere so, its very secure.
             </p>
           </div>
           <div className={styles.box_container}>
-            <p className={styles.b_heading}>Enter Mail Content</p>
+            <p className={styles.b_heading}>Mail Content</p>
             <p className={styles.b_tagline}>
-              Your detials aren't stored anywhere so, its very secure.
+              You can enter in the mail content that needs to be sent to the list of people.
             </p>
           </div>
           <div className={styles.box_container}>
-            <p className={styles.b_heading}>Upload CSV File</p>
+            <p className={styles.b_heading}>Upload Files</p>
             <p className={styles.b_tagline}>
-              Your detials aren't stored anywhere so, its very secure.
+              Finally, Upload the CSV file and the attachments that you want to send.
             </p>
           </div>
         </div>
       </div>
-      <div className={styles.form_view_container}>
+      <div className={styles.form_view_container} id="form">
         <form className={styles.form_view}>
           <div className={styles.fov_texts}>
             <p className={styles.fov_heading}>Enter the Details</p>
@@ -187,7 +189,7 @@ const FileUpload = () => {
               </label>
               <input
                 onChange={(e) => {
-                  onChange = { handleFileChange };
+                  handleFileChange;
                 }}
                 required
                 className={styles.form_field}
