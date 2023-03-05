@@ -14,16 +14,31 @@ const FileUpload = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("fromMail", fromMail);
-    formData.append("password", subject);
-    formData.append("emailContent", emailContent);
-    formData.append("file", file);
-    console.log(formData);
-    axios
-      .post("https://agarjun007.pythonanywhere.com/api/send-mail", formData)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    const data = new FormData();
+    data.append("fromMail", fromMail);
+    data.append("password", password);
+    data.append("subject", subject);
+    data.append("content", emailContent);
+    data.append("inputFile", file);
+    data.append("mailAttachments", files);
+
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://agarjun007.pythonanywhere.com/api/send-mail",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        window.alert("Mail Sent Successfully");
+      })
+      .catch(function (error) {
+        console.log(error);
+        window.alert("Mail Sending Failed Sucessfully");
+      });
   };
 
   const handleFileChange = (event) => {
@@ -117,7 +132,7 @@ const FileUpload = () => {
                   setSubject(e.target.value);
                 }}
                 required
-                value={password}
+                value={subject}
                 className={styles.form_field}
                 type="text"
                 name="mailsubject"
