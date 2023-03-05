@@ -4,99 +4,80 @@
 }
 
 .main_container {
-}
-
-.first_view_container {
-  background-color: #f6e1c3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-evenly;
 }
 
 .first_view {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
-  flex-wrap: wrap;
   align-items: center;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
+  flex-wrap: wrap;
 }
 
 .fv_texts {
-  max-width: 50vh;
+  max-width: 30rem;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+.pre_header {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #e5788f;
+  text-transform: capitalize;
+  font-weight: 300;
+  font-style: ita;
+}
+
+.fv_image {
+  width: 30rem;
 }
 
 .fv_heading {
-  font-family: "Montserrat", sans-serif;
-  font-size: 3.25rem;
-  font-weight: 600;
-  color: #a84448;
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  color: #079d8f;
 }
 
 .fv_tagline {
   font-family: "Poppins", sans-serif;
-  font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
+  font-weight: 300;
+  width: 80%;
 }
 
-.fv_image {
-  width: 20rem;
-}
-
-.second_view_container {
+.view_code {
+  background-color: #079d8f;
+  border: none;
+  padding: 0.75rem 1.45rem;
+  color: white;
+  border-radius: 5px;
   margin-top: 1rem;
-  background-color: #fff;
-  margin-bottom: 1rem;
-}
-
-.row {
-  display: flex;
-  flex-direction: column;
-}
-
-.second_view {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  text-align: left;
-  flex-wrap: wrap;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.box_container {
-  max-width: 15rem;
-  margin-right: 1rem;
-}
-
-.b_heading {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #a84448;
-}
-.iconColor {
-  color: #a84448;
-}
-
-.b_tagline {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
-  margin-top: 0.25rem;
+}
+.fv_heading span {
+  font-weight: 00;
 }
 
-.form_view_container {
-  background-color: #f6e1c3;
-  padding: 2rem;
-}
+@media only screen and (min-width: 768px) {
+  .fv_texts {
+    max-width: 40rem;
+    text-align: left;
+  }
 
-.form_view {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
+  .fv_image {
+    width: 35rem;
+  }
+
+  .fv_heading {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    line-height: 3rem;
+    color: #079d8f;
+  }
 }

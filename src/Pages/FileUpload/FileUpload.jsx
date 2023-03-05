@@ -4,8 +4,6 @@ import styles from "./FileUpload.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { GrSecure } from "react-icons/gr";
-
 const FileUpload = () => {
   const [fromMail, setFromMail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,17 +29,23 @@ const FileUpload = () => {
     <div className={styles.main_container}>
       <div className={styles.first_view_container}>
         <div className={styles.first_view}>
-          <img src="/fvimg.png" alt="" className={styles.fv_image} />
+          <img src="/fvimg.webp" alt="" className={styles.fv_image} />
           <div className={styles.fv_texts}>
-            <p className={styles.fv_heading}>MailMan Mass Mailer</p>
+            <p className={styles.pre_header}>
+              BuildNShip: Made for FOSS Hack'23
+            </p>
+            <p className={styles.fv_heading}>
+              Senting group emails has never been easier. Introducing Mailman.
+            </p>
             <p className={styles.fv_tagline}>
               Your go-to open source mail service for effortlessly sending group
               emails.
             </p>
+            <button className={styles.view_code}>Sent Mail</button>
           </div>
         </div>
       </div>
-      <div className={styles.second_view_container}>
+      {/* <div className={styles.second_view_container}>
         <div className={styles.second_view}>
           <div className={styles.box_container}>
             <p className={styles.b_heading}>Enter Your Credentials</p>
@@ -65,7 +69,6 @@ const FileUpload = () => {
       </div>
       <div className={styles.form_view_container}>
         <form className={styles.form_view}>
-          <p className={styles.heading}>Step 1: Enter Credentials</p>
           <div className={styles.row}>
             <label className={styles.form_label} htmlFor="frommail">
               Enter From-Mail Address
@@ -153,7 +156,7 @@ const FileUpload = () => {
             Submit
           </button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };
