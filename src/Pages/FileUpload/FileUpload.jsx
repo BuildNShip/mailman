@@ -2,6 +2,7 @@
 import React from "react";
 import styles from "./FileUpload.module.css";
 import axios from "axios";
+import FormData from "form-data";
 import { useState, useEffect } from "react";
 
 const FileUpload = () => {
@@ -13,16 +14,30 @@ const FileUpload = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("fromMail", fromMail);
-    formData.append("password", appId);
-    formData.append("emailContent", emailContent);
-    formData.append("file", file);
-    console.log(formData);
-    axios
-      .post("mailman.buildandship.in/api/send-mail", formData)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    const data = new FormData();
+    data.append("fromMail", fromMail);
+    data.append("password", password);
+    data.append("subject", subject);
+    data.append("content", emailContent);
+    data.append("file", file);
+
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://agarjun007.pythonanywhere.com/api/send-mail",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        window.alert("Mail Sent Successfully");
+      })
+      .catch(function (error) {
+        console.log(error);
+        window.alert("Mail Sending Failed Sucessfully");
+      });
   };
 
   return (
@@ -42,7 +57,7 @@ const FileUpload = () => {
               Enter From Mail Address
             </label>
             <input
-            required
+              required
               value={fromMail}
               onChange={(e) => {
                 setFromMail(e.target.value);
@@ -69,7 +84,6 @@ const FileUpload = () => {
             />
           </div>
 
-
           <div className={styles.row}>
             <label className={styles.form_label} htmlFor="mailsubject">
               Enter Mail Subject
@@ -79,7 +93,7 @@ const FileUpload = () => {
                 setSubject(e.target.value);
               }}
               required
-              value={password}
+              value={subject}
               className={styles.form_field}
               type="text"
               name="mailsubject"
@@ -91,7 +105,7 @@ const FileUpload = () => {
               Email Content Content
             </label>
             <textarea
-            required
+              required
               onChange={(e) => {
                 setEmailContent(e.target.value);
               }}
@@ -117,7 +131,11 @@ const FileUpload = () => {
             />
           </div>
 
-          <button type="submit" onClick={handleSubmit} className={styles.submit_button}>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className={styles.submit_button}
+          >
             Submit
           </button>
         </form>
