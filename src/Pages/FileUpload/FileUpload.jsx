@@ -25,7 +25,7 @@ const FileUpload = () => {
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://agarjun007.pythonanywhere.com/api/send-mail",
+      url: "https://mailman.buildnship.in/api/send-mail",
       headers: { "Content-Type": "multipart/form-data" },
       data: data,
     };
@@ -50,7 +50,8 @@ const FileUpload = () => {
     <div className={styles.main_container}>
       <div className={styles.first_view_container}>
         <div className={styles.first_view}>
-          <img src="/fvimg.webp" alt="" className={styles.fv_image} />
+          <img src="/fvimg1.webp" alt="" className={styles.fv_image} />
+
           <div className={styles.fv_texts}>
             <p className={styles.pre_header}>
               BuildNShip: Made for FOSS Hack'23
@@ -89,14 +90,15 @@ const FileUpload = () => {
         </div>
       </div>
       <div className={styles.form_view_container}>
-        <div className={styles.fov_texts}>
-          <p className={styles.fov_heading}>Enter the Details</p>
-          <p className={styles.fov_tagline}>
-            Enter the details and upload the CSV file along with the
-            attachments. To sent the mail, click on the button below.
-          </p>
-        </div>
         <form className={styles.form_view}>
+          <div className={styles.fov_texts}>
+            <p className={styles.fov_heading}>Enter the Details</p>
+            <p className={styles.fov_tagline}>
+              Enter the details and upload the CSV file along with the
+              attachments. To sent the mail, click on the button below.
+            </p>
+          </div>
+
           <div className={styles.rows}>
             <div className={styles.row}>
               <label className={styles.form_label} htmlFor="frommail">

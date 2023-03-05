@@ -10,15 +10,21 @@
   align-items: space-evenly;
 }
 
+.first_view_container {
+  background-color: #edf5fb;
+}
+
 .first_view {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-evenly;
   align-items: center;
-  flex-wrap: wrap;
+
+  margin: auto;
+  max-width: 1200px;
 }
 
 .fv_texts {
-  max-width: 30rem;
   text-align: center;
   display: block;
   margin: auto;
@@ -27,20 +33,19 @@
 .pre_header {
   font-family: "Poppins", sans-serif;
   font-size: 1.25rem;
-  color: #e5788f;
+  color: #3176d1;
   text-transform: capitalize;
   font-weight: 300;
-  font-style: ita;
 }
 
 .fv_image {
-  width: 30rem;
+  width: 20rem;
 }
 
 .fv_heading {
   font-family: "Poppins", sans-serif;
   font-size: 2rem;
-  color: #079d8f;
+  color: #3176d1;
 }
 
 .fv_tagline {
@@ -52,7 +57,7 @@
 }
 
 .view_code {
-  background-color: #079d8f;
+  background-color: #3176d1;
   border: none;
   padding: 0.75rem 1.45rem;
   color: white;
@@ -64,19 +69,20 @@
 
 @media only screen and (min-width: 768px) {
   .fv_texts {
-    max-width: 35rem;
     text-align: left;
+    max-width: 35rem;
+    margin: 0;
   }
 
   .fv_image {
-    width: 35rem;
+    width: 30rem;
   }
 
   .fv_heading {
     font-family: "Poppins", sans-serif;
     font-size: 2.25rem;
     line-height: 3rem;
-    color: #079d8f;
+    color: #3176d1;
   }
 
   .fv_tagline {
@@ -107,7 +113,7 @@
   font-family: "Popins", sans-serif;
   font-size: 1.5rem;
   font-weight: 200;
-  color: #079d8f;
+  color: #3176d1;
 }
 
 .b_tagline {
@@ -118,24 +124,27 @@
 /* Third View Container */
 
 .form_view_container {
-  max-width: 1200px;
-  margin: auto;
+  background-color: #edf5fb;
 }
 
 .form_view {
+  padding: 2rem 0;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: start;
-}
 
-.row {
-  margin: 1rem;
+  max-width: 1100px;
+  margin: auto;
 }
 
 .crow {
   width: 100%;
-  margin: 1rem;
+  margin-right: 0.5rem;
+}
+
+.row {
+  margin-right: 0.5rem;
 }
 
 .form_label {
@@ -174,12 +183,11 @@ textarea {
 } */
 
 .submit_button {
-  background-color: #079d8f;
+  background-color: #3176d1;
   color: white;
   border: none;
-  padding: 0.75rem 1.45rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 5px;
-  margin: 1rem;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
 }
@@ -191,13 +199,17 @@ textarea {
 
 .submit_button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #079d8f;
+  box-shadow: 0 0 0 2px #3176d1;
+}
+
+.fov_texts{
+  margin-bottom: 2rem;
 }
 
 .fov_heading {
   font-family: "Poppins", sans-serif;
   font-size: 1.75rem;
-  color: #079d8f;
+  color: #3176d1;
   font-weight: 500;
 }
 
