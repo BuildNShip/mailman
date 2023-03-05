@@ -89,6 +89,13 @@ const FileUpload = () => {
         </div>
       </div>
       <div className={styles.form_view_container}>
+        <div className={styles.fov_texts}>
+          <p className={styles.fov_heading}>Enter the Details</p>
+          <p className={styles.fov_tagline}>
+            Enter the details and upload the CSV file along with the
+            attachments. To sent the mail, click on the button below.
+          </p>
+        </div>
         <form className={styles.form_view}>
           <div className={styles.rows}>
             <div className={styles.row}>
@@ -118,7 +125,7 @@ const FileUpload = () => {
                 required
                 value={password}
                 className={styles.form_field}
-                type="text"
+                type="password"
                 name="password"
               />
             </div>
@@ -140,7 +147,7 @@ const FileUpload = () => {
             </div>
           </div>
 
-          <div className={styles.row}>
+          <div className={styles.crow}>
             <label className={styles.form_label} htmlFor="textarea">
               Email Content Content
             </label>
@@ -188,14 +195,17 @@ const FileUpload = () => {
                 accept=".png, .jpg, .jpeg"
               />
             </div>
+
+            <div className={styles.rows}>
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className={styles.submit_button}
+              >
+                Submit
+              </button>
+            </div>
           </div>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className={styles.submit_button}
-          >
-            Submit
-          </button>
         </form>
       </div>
     </div>
