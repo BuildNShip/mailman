@@ -3,6 +3,7 @@ import React from "react"
 import styles from "./FileUpload.module.css"
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { useToast } from "@chakra-ui/react"
 
 const FileUpload = () => {
   const [fromMail, setFromMail] = useState("")
@@ -13,14 +14,15 @@ const FileUpload = () => {
   const [file, setFile] = useState()
 
   const handleSubmit = (e) => {
-    e.preventDefault()
     const data = new FormData()
     data.append("fromMail", fromMail)
     data.append("password", password)
     data.append("subject", subject)
     data.append("content", emailContent)
     data.append("inputFile", file)
-    data.append("mailAttachments", files)
+    for (let i = 0; i < files.length; i++) {
+      data.append("mailAttachment", files[i])
+    }
 
     const config = {
       method: "post",
@@ -33,11 +35,23 @@ const FileUpload = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data))
-        window.alert("Mail Sent Successfully")
+        toast({
+          title: "Mail Sent Sucessfully",
+          description: "All Mail Sent Sucessfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        })
       })
       .catch(function (error) {
         console.log(error)
-        window.alert("Mail Sending Failed Sucessfully")
+        toast({
+          title: "Mail Sent Failed",
+          description: "All Mail Sent Failed, Please try again",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        })
       })
   }
 
@@ -45,6 +59,8 @@ const FileUpload = () => {
     const selectedFiles = Array.from(event.target.files)
     setFiles(selectedFiles)
   }
+
+  const toast = useToast()
 
   return (
     <div className={styles.main_container}>
@@ -55,6 +71,7 @@ const FileUpload = () => {
               setFromMail(event.target.value)
             }}
             type="email"
+            value={fromMail}
             required
             placeholder="From Address"
           />
@@ -62,11 +79,36 @@ const FileUpload = () => {
             onChange={(event) => {
               setPassword(event.target.value)
             }}
+            value={password}
             type="password"
             required
             placeholder="Email Password"
           />
-          <button className={styles.sent_mail}>Sent Mails</button>
+          <button
+            onClick={() => {
+              //check whether the email and password are valid or not and there is a mail subject and content and the state variables are not empty
+              if (
+                fromMail === "" ||
+                password === "" ||
+                subject === "" ||
+                emailContent === "" ||
+                file === undefined
+              ) {
+                toast({
+                  title: "Field are Not Filled.",
+                  description: "Please fill all the fields and try again.",
+                  status: "error",
+                  duration: 5000,
+                  isClosable: true,
+                })
+              } else {
+                handleSubmit()
+              }
+            }}
+            className={styles.sent_mail}
+          >
+            Sent Mails
+          </button>
         </div>
         <div className={styles.subject_row}>
           <input
@@ -74,6 +116,7 @@ const FileUpload = () => {
               setSubject(event.target.value)
             }}
             type="text"
+            value={subject}
             required
             placeholder="Mail Subject"
           />
@@ -85,6 +128,7 @@ const FileUpload = () => {
           onChange={(event) => {
             setEmailContent(event.target.value)
           }}
+          value={emailContent}
           placeholder="Mail Content"
           required
         />
@@ -93,19 +137,31 @@ const FileUpload = () => {
             type="file"
             id="file1"
             name="file1"
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={(e) => {
+              setFile(e.target.files[0])
+              document.getElementById("file1_label").textContent =
+                e.target.files[0].name
+            }}
             required
           />
-          <label htmlFor="file1">Choose File</label>
+          <label htmlFor="file1" id="file1_label">
+            Choose File
+          </label>
 
           <input
             type="file"
             id="file2"
             name="file2"
             multiple
-            onChange={handleFileChange}
+            onChange={(e) => {
+              handleFileChange(e)
+              document.getElementById("file2_label").textContent =
+                e.target.files[0].name
+            }}
           />
-          <label htmlFor="file2">Choose Multiple Files</label>
+          <label htmlFor="file2" id="file2_label">
+            Choose Multiple Files
+          </label>
         </div>
       </div>
     </div>
