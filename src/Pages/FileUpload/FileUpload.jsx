@@ -26,20 +26,58 @@ const FileUpload = () => {
     })
   }
 
-  const getDataByHeader = (header) => {
-    return csvData.map((row) => row[header])
-  }
-
-  const handleSubmit = (e) => {
-    console.log(csvData)
-  }
-
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files)
     setFiles(selectedFiles)
   }
 
-  const toast = useToast()
+  const handleSubmit = (e) => {
+    csvData.map((obj) => {
+      const data = new FormData()
+      data.append("fromMail", fromMail)
+      data.append("password", password)
+      data.append("to", obj.email)
+      data.append("subject", subject)
+      data.append("content", makeContent(obj))
+      data.append("attachment", selectAttachment(obj))
+
+      console.log(data);
+
+      const config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "https://mailman.buildnship.in/api/send-mail",
+        headers: { "Content-Type": "multipart/form-data" },
+        data: data,
+      }
+
+      axios(config)
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    })
+  }
+
+  const makeContent = (obj) => {
+    let updatedText = emailContent
+    const placeholders = emailContent.match(/{{\w+}}/g)
+    if (placeholders) {
+      placeholders.forEach((placeholder) => {
+        const propName = placeholder.substring(2, placeholder.length - 2)
+        updatedText = updatedText.replace(placeholder, obj[propName] || "")
+      })
+    }
+    return updatedText
+  }
+
+  const selectAttachment = (obj) => {
+    const attachmentName = obj.attachment || ""
+    const attachment = files.find((file) => file.name === attachmentName)
+    return attachment
+  }
 
   return (
     <div className={styles.background_container}>
