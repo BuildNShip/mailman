@@ -23,8 +23,7 @@
   padding: 10px 20px;
 }
 
-.logo p{
-
+.logo p {
 }
 
 .navbar_button:hover {
@@ -124,6 +123,7 @@ textarea:focus {
   flex-direction: row;
   align-items: center;
   padding: 1rem;
+  margin-top: 0.5rem;
   border: 1px solid #282727;
   border-radius: 5px;
 }
@@ -188,6 +188,10 @@ button[type="submit"]:hover {
   flex-direction: column;
   justify-content: space-between;
   height: calc(100vh - 246px);
+}
+
+.attachment_label {
+  margin-right: 1rem;
 }
 
 .mail_content {

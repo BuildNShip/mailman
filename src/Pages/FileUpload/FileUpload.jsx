@@ -4,23 +4,56 @@ import styles from "./FileUpload.module.css"
 import axios from "axios"
 import { useState, useEffect } from "react"
 import Papa from "papaparse"
+import { Tooltip } from "@chakra-ui/react"
 import { useToast } from "@chakra-ui/react"
+import EmailPreview from "../../Components/EmailPreview/EmailPreview"
 
 const FileUpload = () => {
-  const [fromMail, setFromMail] = useState("")
-  const [password, setPassword] = useState("")
+  const [fromMail, setFromMail] = useState("testme7689@gmail.com")
+  const [password, setPassword] = useState("ouynltsjpprydtrr")
   const [emailContent, setEmailContent] = useState("")
-  const [subject, setSubject] = useState("")
+  const [subject, setSubject] = useState("All api’s should prefix with ‘api/")
   const [files, setFiles] = useState([])
   const [file, setFile] = useState()
+  const [confirm, setConfirm] = useState(false)
+
+  const [sampleEmail, setSampleEmail] = useState({
+    fromMail: "",
+    password: "",
+    subject: "",
+    emailContent: "",
+    attachments: [],
+  })
 
   const [csvData, setCsvData] = useState([])
 
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
+
+  const handleEmailPreview = () => {
+    setIsEmailModalOpen(true)
+  }
+
+  const handleCloseEmailModal = () => {
+    setIsEmailModalOpen(false)
+  }
+
   const handleCsvUpload = (event) => {
     const file = event.target.files[0]
+
     Papa.parse(file, {
       header: true,
       complete: (result) => {
+        result.data.forEach(function (obj) {
+          var new_obj = {}
+          Object.keys(obj).forEach(function (key) {
+            new_obj[key.toLowerCase()] = obj[key]
+          })
+          Object.keys(obj).forEach(function (key) {
+            delete obj[key]
+          })
+          Object.assign(obj, new_obj)
+        })
+
         setCsvData(result.data)
       },
     })
@@ -31,42 +64,16 @@ const FileUpload = () => {
     setFiles(selectedFiles)
   }
 
-  const handleSubmit = (e) => {
-    csvData.map((obj) => {
-      const data = new FormData()
-      data.append("fromMail", fromMail)
-      data.append("password", password)
-      data.append("to", obj.email)
-      data.append("subject", subject)
-      data.append("content", makeContent(obj))
-      data.append("attachment", selectAttachment(obj))
-
-      console.log(data);
-
-      const config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://mailman.buildnship.in/api/send-mail",
-        headers: { "Content-Type": "multipart/form-data" },
-        data: data,
-      }
-
-      axios(config)
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-    })
-  }
-
   const makeContent = (obj) => {
     let updatedText = emailContent
     const placeholders = emailContent.match(/{{\w+}}/g)
+
     if (placeholders) {
       placeholders.forEach((placeholder) => {
-        const propName = placeholder.substring(2, placeholder.length - 2)
+        const propName = placeholder
+          .substring(2, placeholder.length - 2)
+          .toLowerCase()
+
         updatedText = updatedText.replace(placeholder, obj[propName] || "")
       })
     }
@@ -74,13 +81,76 @@ const FileUpload = () => {
   }
 
   const selectAttachment = (obj) => {
-    const attachmentName = obj.attachment || ""
-    const attachment = files.find((file) => file.name === attachmentName)
-    return attachment
+    const attachmentNames = Object.keys(obj).filter(
+      (key) => key.startsWith("attachment") && obj[key] !== ""
+    )
+    const attachments = attachmentNames.map(
+      (attachmentName) =>
+        files.find((file) => file.name === obj[attachmentName]) || null
+    )
+
+    console.log(attachments)
+
+    return attachments.filter((attachment) => attachment !== null)
   }
+
+  const handlePreview = (e) => {
+    setSampleEmail((prevState) => ({
+      ...prevState,
+      fromMail: fromMail,
+      subject: subject,
+      emailContent: makeContent(csvData[0]),
+      attachments: selectAttachment(csvData[0]),
+    }))
+
+    handleEmailPreview()
+  }
+
+  useEffect(() => {
+    if (confirm) {
+      csvData.map((obj) => {
+        const data = new FormData()
+        data.append("fromMail", fromMail)
+        data.append("password", password)
+        data.append("to", obj.email)
+        data.append("subject", subject)
+        data.append("content", makeContent(obj))
+
+        const files = selectAttachment(obj)
+
+        files.forEach((file) => {
+          data.append("mailAttachment", file)
+        })
+
+        const config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://api.buildnship.in/mailman/v1/send-mail",
+          headers: { "Content-Type": "multipart/form-data" },
+          data: data,
+        }
+
+        axios(config)
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      })
+    }
+  }, [confirm])
 
   return (
     <div className={styles.background_container}>
+      <EmailPreview
+        isOpen={isEmailModalOpen}
+        onClose={handleCloseEmailModal}
+        email={sampleEmail}
+        setConfirm={setConfirm}
+        confirm={confirm}
+      />
+
       <div className={styles.main_container}>
         <div className={styles.navbar}>
           <div className={styles.logo}>
@@ -102,8 +172,9 @@ const FileUpload = () => {
               type="email"
               value={fromMail}
               required
-              placeholder="From Address"
+              placeholder="Enter Your Email Address"
             />
+
             <input
               onChange={(event) => {
                 setPassword(event.target.value)
@@ -111,13 +182,13 @@ const FileUpload = () => {
               value={password}
               type="password"
               required
-              placeholder="Email Password"
+              placeholder="Enter Your Email Password"
             />
             <button
               onClick={() => {
                 //check whether the email and password are valid or not and there is a mail subject and content and the state variables are not empty
 
-                handleSubmit()
+                handlePreview()
               }}
               className={styles.sent_mail}
             >
@@ -132,7 +203,7 @@ const FileUpload = () => {
               type="text"
               value={subject}
               required
-              placeholder="Mail Subject"
+              placeholder="This is the subject of the mail"
             />
           </div>
         </div>
@@ -147,6 +218,7 @@ const FileUpload = () => {
             required
           />
           <div className={styles.attachments}>
+            <p className={styles.attachment_label}>Select the CSV File</p>
             <input
               type="file"
               id="file1"
@@ -162,7 +234,11 @@ const FileUpload = () => {
             <label htmlFor="file1" id="file1_label">
               Choose File
             </label>
-
+          </div>
+          <div className={styles.attachments}>
+            <p className={styles.attachment_label}>
+              Select all the mail Attachements
+            </p>
             <input
               type="file"
               id="file2"
@@ -170,8 +246,10 @@ const FileUpload = () => {
               multiple
               onChange={(e) => {
                 handleFileChange(e)
-                document.getElementById("file2_label").textContent =
-                  e.target.files[0].name
+                const fileNames = Array.from(e.target.files)
+                  .map((file) => file.name)
+                  .join(", ")
+                document.getElementById("file2_label").textContent = fileNames
               }}
             />
             <label htmlFor="file2" id="file2_label">
