@@ -37,13 +37,13 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Are you sure?</ModalHeader>
-          <Text>
-            This is a a sample for the mail you have just requested. Do confirm
-            it to start senting mails.
-          </Text>
           <ModalCloseButton />
           <ModalBody>
             <Stack spacing={4}>
+            <Text>
+              This is a a sample for the mail you have just requested. Do
+              confirm it to start senting mails.
+            </Text>
               <Text>
                 <strong>From:</strong> {fromMail}
               </Text>

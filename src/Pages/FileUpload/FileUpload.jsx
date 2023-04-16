@@ -7,12 +7,13 @@ import Papa from "papaparse"
 import { Tooltip } from "@chakra-ui/react"
 import { useToast } from "@chakra-ui/react"
 import EmailPreview from "../../Components/EmailPreview/EmailPreview"
+import { Formik, Form, Field, ErrorMessage } from "formik"
 
 const FileUpload = () => {
-  const [fromMail, setFromMail] = useState("testme7689@gmail.com")
-  const [password, setPassword] = useState("ouynltsjpprydtrr")
+  const [fromMail, setFromMail] = useState("")
+  const [password, setPassword] = useState("")
   const [emailContent, setEmailContent] = useState("")
-  const [subject, setSubject] = useState("All api’s should prefix with ‘api/")
+  const [subject, setSubject] = useState("")
   const [files, setFiles] = useState([])
   const [file, setFile] = useState()
   const [confirm, setConfirm] = useState(false)
@@ -36,6 +37,8 @@ const FileUpload = () => {
   const handleCloseEmailModal = () => {
     setIsEmailModalOpen(false)
   }
+
+  const toast = useToast()
 
   const handleCsvUpload = (event) => {
     const file = event.target.files[0]
@@ -88,8 +91,6 @@ const FileUpload = () => {
       (attachmentName) =>
         files.find((file) => file.name === obj[attachmentName]) || null
     )
-
-    console.log(attachments)
 
     return attachments.filter((attachment) => attachment !== null)
   }
@@ -187,8 +188,17 @@ const FileUpload = () => {
             <button
               onClick={() => {
                 //check whether the email and password are valid or not and there is a mail subject and content and the state variables are not empty
-
-                handlePreview()
+                if (!file) {
+                  toast({
+                    title: "Upload CSV",
+                    status: "error",
+                    duration: 9000,
+                    position: "top-right",
+                    isClosable: true,
+                  })
+                } else {
+                  handlePreview()
+                }
               }}
               className={styles.sent_mail}
             >
