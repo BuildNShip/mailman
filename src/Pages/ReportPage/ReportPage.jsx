@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { Progress } from "@chakra-ui/react";
 import styles from "./ReportPage.module.css";
 
-const ReportPage = ({successList, failureList }) => {
-
+const ReportPage = ({ totalNumber, successList, failureList }) => {
   useEffect(() => {
-    console.log(successList);
-    console.log(failureList);
+    console.log(successList.length);
+    console.log(failureList.length);
+    let progressCount =
+      ((successList.length + failureList.length) / totalNumber) * 100;
+    console.log(progressCount);
+    setProgress(progressCount);
   });
+
+  const [progress, setProgress] = useState(0);
 
   return (
     <div className={styles.background_container}>
@@ -25,7 +31,11 @@ const ReportPage = ({successList, failureList }) => {
               ></iframe>
             </div>
             <div className={styles.report_section}>
-              You are viewing the report section
+              <Progress colorScheme="green" size="lg" value={progress} />
+              <p className={styles.progress_text}>
+                {successList.length + failureList.length}/{totalNumber} Mails
+                Sent
+              </p>
             </div>
           </div>
         </div>

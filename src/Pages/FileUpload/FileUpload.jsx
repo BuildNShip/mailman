@@ -17,11 +17,10 @@ const FileUpload = () => {
   const [file, setFile] = useState();
   const [confirm, setConfirm] = useState(false);
 
-  const [totalNumber, setTotalNumber] = useState(0);
   const [failureList, setFailureList] = useState([]);
   const [successList, setSuccessList] = useState([]);
 
-  const [viewReport, setViewReport] = useState(false);
+  const [viewReport, setViewReport] = useState(true);
 
   const [sampleEmail, setSampleEmail] = useState({
     fromMail: "",
@@ -150,13 +149,11 @@ const FileUpload = () => {
                 response.data.recipient,
               ]);
             }
-            
           })
           .catch(function (error) {
             console.log(error);
           })
-          .finally(function () {
-          });
+          .finally(function () {});
       });
     }
   }, [confirm]);
@@ -320,6 +317,7 @@ const FileUpload = () => {
     </div>
   ) : (
     <ReportPage
+      totalNumber={csvData.length}
       successList={successList}
       failureList={failureList}
     />

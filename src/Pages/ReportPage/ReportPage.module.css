@@ -55,3 +55,12 @@
   font-size: 14px;
   color: #fff;
 }
+
+.progress_text {
+  margin-top: 1rem;
+
+  font-family: "Manrope", sans-serif;
+  text-align: center;
+  font-weight: 300;
+  font-size: 1.25rem;
+}
