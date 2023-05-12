@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {
   Button,
   Modal,
@@ -10,11 +10,11 @@ import {
   ModalFooter,
   Text,
   Stack,
-} from "@chakra-ui/react"
-import { extendTheme, ChakraProvider } from "@chakra-ui/react"
+} from "@chakra-ui/react";
+import { extendTheme, ChakraProvider } from "@chakra-ui/react";
 
 const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
-  const { fromMail, subject, emailContent, attachments } = email
+  const { fromMail, subject, emailContent, attachments } = email;
   const customTheme = extendTheme({
     components: {
       Modal: {
@@ -29,21 +29,23 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
         },
       },
     },
-  })
+  });
 
   return (
     <ChakraProvider theme={customTheme}>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Are you sure?</ModalHeader>
-          <ModalCloseButton />
+        <ModalContent bg="#282727" color="#fff">
+          <ModalHeader borderBottom="1px solid #3c3c3c" pb={2} fontSize="lg">
+            Are you sure?
+          </ModalHeader>
+          <ModalCloseButton color="#fff" _hover={{ color: "#fff" }} />
           <ModalBody>
             <Stack spacing={4}>
-            <Text>
-              This is a a sample for the mail you have just requested. Do
-              confirm it to start senting mails.
-            </Text>
+              <Text color="#2ba6a6">
+                This is a sample for the mail you have just requested. Do
+                confirm it to start sending mails.
+              </Text>
               <Text>
                 <strong>From:</strong> {fromMail}
               </Text>
@@ -53,33 +55,40 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
               <Text>
                 <strong>Content:</strong> {emailContent}
               </Text>
+              {attachments && attachments.length > 0 && (
+                <Text>
+                  <strong>Attachments:</strong>
+                </Text>
+              )}
 
-              <Text>
-                <strong>Attachments:</strong>
-              </Text>
-              <Text>
+              <Stack direction="row" alignItems="center">
                 {attachments &&
-                  attachments.map(
-                    (attachment, index) =>
-                      `${
-                        attachment.name +
-                        (index != attachments.length - 1 ? ", " : "")
-                      }`
-                  )}
-              </Text>
+                  attachments.map((attachment, index) => (
+                    <Box key={index} className="attachments">
+                      <label htmlFor={`attachment-${index}`}>Browse...</label>
+                      <span>{attachment.name}</span>
+                      <input
+                        type="file"
+                        id={`attachment-${index}`}
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                        onChange={(e) => handleAttachmentChange(e, index)}
+                      />
+                    </Box>
+                  ))}
+              </Stack>
             </Stack>
           </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+          <ModalFooter borderTop="1px solid #3c3c3c">
+            <Button colorScheme="teal" mr={3} onClick={onClose} variant="ghost">
               Cancel
             </Button>
             <Button
-              colorScheme="blue"
+              colorScheme="teal"
               mr={3}
               onClick={() => {
-                onClose()
-                setConfirm(true)
+                onClose();
+                setConfirm(true);
               }}
             >
               Confirm
@@ -88,7 +97,7 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
         </ModalContent>
       </Modal>
     </ChakraProvider>
-  )
-}
+  );
+};
 
-export default EmailPreview
+export default EmailPreview;

@@ -9,10 +9,10 @@ import EmailPreview from "../../Components/EmailPreview/EmailPreview";
 import ReportPage from "../ReportPage/ReportPage";
 
 const FileUpload = () => {
-  const [fromMail, setFromMail] = useState("testme7689@gmail.com");
-  const [password, setPassword] = useState("ouynltsjpprydtrr");
-  const [emailContent, setEmailContent] = useState("123");
-  const [subject, setSubject] = useState("123");
+  const [fromMail, setFromMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailContent, setEmailContent] = useState("");
+  const [subject, setSubject] = useState("");
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState();
   const [confirm, setConfirm] = useState(false);
@@ -162,6 +162,20 @@ const FileUpload = () => {
           .finally(function () {});
       });
     }
+
+    toast({
+      title: "We only support gmail for now",
+      status: "info",
+      duration: 9000,
+      isClosable: true,
+    });
+    toast({
+      title: "Make sure to use your App Password as password",
+      description: "Always reset your App Password after use",
+      status: "info",
+      duration: 9000,
+      isClosable: true,
+    });
   }, [confirm]);
   return !viewReport ? (
     <div className={styles.background_container}>
@@ -276,7 +290,7 @@ const FileUpload = () => {
               setEmailContent(event.target.value);
             }}
             value={emailContent}
-            placeholder="Mail Content"
+            placeholder="You can enter the content of the mail here, we do support dynamic content. You could use the following syntax to add dynamic content {{column_name}}. For example, if you want to add the name of the person in the mail, you could use {{name}}. The column name should be the same as the column name in the CSV file."
             required
           />
           <div className={styles.attachments}>
@@ -296,6 +310,12 @@ const FileUpload = () => {
             <label htmlFor="file1" id="file1_label">
               Choose File
             </label>
+            <a href="src\Pages\FileUpload\template.csv">
+              {" "}
+              <p className={styles.download_template}>
+                Download the sample CSV file{" "}
+              </p>
+            </a>
           </div>
           <div className={styles.attachments}>
             <p className={styles.attachment_label}>

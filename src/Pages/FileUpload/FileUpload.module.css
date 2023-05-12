@@ -60,14 +60,15 @@
 }
 
 .sent_mail {
-  color: #1a1a1a;
-  background-color: #fff;
+  color: #ffffff;
+  background-color: #2ba6a6;
   border: none;
   padding: 8px 10px;
   border-radius: 4px;
   margin: 0.3rem;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   margin-bottom: 20px;
   width: 15rem;
 }
@@ -204,4 +205,10 @@ button[type="submit"]:hover {
   border: none;
   outline: none;
   margin-bottom: 16px;
+}
+
+.download_template {
+  text-decoration: underline!important;
+  color: #2ba6a6;
+  font-size: 0.85rem;
 }
