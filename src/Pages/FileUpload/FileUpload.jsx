@@ -63,7 +63,14 @@ const FileUpload = () => {
           Object.assign(obj, new_obj);
         });
 
-        setCsvData(result.data);
+        //loop throught result.data and check if all values are present and not empty string or undefined and to a variable data
+
+        var data_ = result.data.filter((obj) => {
+          return !Object.values(obj).every(
+            (value) => value === "" || value === undefined
+          );
+        });
+        setCsvData(data_);
       },
     });
   };
@@ -131,10 +138,6 @@ const FileUpload = () => {
           data.append("mailAttachment", file);
         });
 
-        if (!Object.values(obj).every(value => value === '' || value === undefined)){
-
-        
-
         const config = {
           method: "post",
           maxBodyLength: Infinity,
@@ -165,7 +168,6 @@ const FileUpload = () => {
             console.log(error);
           })
           .finally(function () {});
-        }
       });
     }
 
