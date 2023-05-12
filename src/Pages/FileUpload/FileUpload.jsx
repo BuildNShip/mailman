@@ -4,20 +4,22 @@ import styles from "./FileUpload.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Papa from "papaparse";
-import { Tooltip } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import EmailPreview from "../../Components/EmailPreview/EmailPreview";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import ReportPage from "../ReportPage/ReportPage";
 
 const FileUpload = () => {
-  const [fromMail, setFromMail] = useState("test@test.com");
-  const [password, setPassword] = useState("123");
+  const [fromMail, setFromMail] = useState("testme7689@gmail.com");
+  const [password, setPassword] = useState("ouynltsjpprydtrr");
   const [emailContent, setEmailContent] = useState("123");
   const [subject, setSubject] = useState("123");
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState();
   const [confirm, setConfirm] = useState(false);
+
+  const [totalNumber, setTotalNumber] = useState(0);
+  const [failureList, setFailureList] = useState([]);
+  const [successList, setSuccessList] = useState([]);
 
   const [viewReport, setViewReport] = useState(false);
 
@@ -33,7 +35,6 @@ const FileUpload = () => {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const handleEmailPreview = () => {
-    console.log(sampleEmail);
     setIsEmailModalOpen(true);
   };
 
@@ -99,7 +100,6 @@ const FileUpload = () => {
   };
 
   const handlePreview = (e) => {
-    console.log(csvData[0]);
     setSampleEmail((prevState) => ({
       ...prevState,
       fromMail: fromMail,
@@ -138,13 +138,25 @@ const FileUpload = () => {
 
         axios(config)
           .then(function (response) {
-            console.log(response);
+            if (!response.data.hasError) {
+              //update the success number in the state variable
+              setSuccessList((successList) => [
+                ...successList,
+                response.data.recipient,
+              ]);
+            } else {
+              setFailureList((failureList) => [
+                ...failureList,
+                response.data.recipient,
+              ]);
+            }
+            
           })
           .catch(function (error) {
             console.log(error);
+          })
+          .finally(function () {
           });
-
-        setConfirm(false);
       });
     }
   }, [confirm]);
@@ -307,7 +319,10 @@ const FileUpload = () => {
       </div>
     </div>
   ) : (
-    <ReportPage />
+    <ReportPage
+      successList={successList}
+      failureList={failureList}
+    />
   );
 };
 

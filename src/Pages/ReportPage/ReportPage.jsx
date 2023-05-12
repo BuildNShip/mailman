@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ReportPage.module.css";
 
-const ReportPage = () => {
+const ReportPage = ({successList, failureList }) => {
+
+  useEffect(() => {
+    console.log(successList);
+    console.log(failureList);
+  });
+
   return (
     <div className={styles.background_container}>
       <div className={styles.main_container}>
