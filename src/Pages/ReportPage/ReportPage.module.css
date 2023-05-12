@@ -41,6 +41,7 @@
 
 .background_container {
   background-color: #141414;
+  font-family: "Manrope", sans-serif;
 }
 
 /* Main container */
@@ -63,4 +64,28 @@
   text-align: center;
   font-weight: 300;
   font-size: 1.25rem;
+}
+
+.table_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 1rem;
+  row-gap: 1rem;
+  column-gap: 1rem;
+}
+
+.table {
+  flex: 1;
+}
+
+.report_text {
+  text-align: center;
+  font-size: 1.45rem;
+  font-weight: 300;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #38a169;
 }

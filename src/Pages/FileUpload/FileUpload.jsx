@@ -20,7 +20,7 @@ const FileUpload = () => {
   const [failureList, setFailureList] = useState([]);
   const [successList, setSuccessList] = useState([]);
 
-  const [viewReport, setViewReport] = useState(true);
+  const [viewReport, setViewReport] = useState(false);
 
   const [sampleEmail, setSampleEmail] = useState({
     fromMail: "",
