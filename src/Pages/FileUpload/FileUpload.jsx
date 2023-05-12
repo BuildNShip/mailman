@@ -1,146 +1,151 @@
 //React code to upload a file to the server from the user's computer
-import React from "react"
-import styles from "./FileUpload.module.css"
-import axios from "axios"
-import { useState, useEffect } from "react"
-import Papa from "papaparse"
-import { Tooltip } from "@chakra-ui/react"
-import { useToast } from "@chakra-ui/react"
-import EmailPreview from "../../Components/EmailPreview/EmailPreview"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+import React from "react";
+import styles from "./FileUpload.module.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Papa from "papaparse";
+import { Tooltip } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import EmailPreview from "../../Components/EmailPreview/EmailPreview";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const FileUpload = () => {
-  const [fromMail, setFromMail] = useState("")
-  const [password, setPassword] = useState("")
-  const [emailContent, setEmailContent] = useState("")
-  const [subject, setSubject] = useState("")
-  const [files, setFiles] = useState([])
-  const [file, setFile] = useState()
-  const [confirm, setConfirm] = useState(false)
+  const [fromMail, setFromMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailContent, setEmailContent] = useState("");
+  const [subject, setSubject] = useState("");
+  const [files, setFiles] = useState([]);
+  const [file, setFile] = useState();
+  const [confirm, setConfirm] = useState(false);
 
   const [sampleEmail, setSampleEmail] = useState({
     fromMail: "",
-    password: "",
     subject: "",
     emailContent: "",
     attachments: [],
-  })
+  });
 
-  const [csvData, setCsvData] = useState([])
+  const [csvData, setCsvData] = useState([]);
 
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const handleEmailPreview = () => {
-    setIsEmailModalOpen(true)
-  }
+    console.log(sampleEmail);
+    setIsEmailModalOpen(true);
+  };
 
   const handleCloseEmailModal = () => {
-    setIsEmailModalOpen(false)
-  }
+    setIsEmailModalOpen(false);
+  };
 
-  const toast = useToast()
+  const toast = useToast();
 
   const handleCsvUpload = (event) => {
-    const file = event.target.files[0]
+    const file = event.target.files[0];
 
     Papa.parse(file, {
       header: true,
       complete: (result) => {
         result.data.forEach(function (obj) {
-          var new_obj = {}
+          var new_obj = {};
           Object.keys(obj).forEach(function (key) {
-            new_obj[key.toLowerCase()] = obj[key]
-          })
+            new_obj[key.toLowerCase()] = obj[key];
+          });
           Object.keys(obj).forEach(function (key) {
-            delete obj[key]
-          })
-          Object.assign(obj, new_obj)
-        })
+            delete obj[key];
+          });
+          Object.assign(obj, new_obj);
+        });
 
-        setCsvData(result.data)
+        setCsvData(result.data);
       },
-    })
-  }
+    });
+  };
 
   const handleFileChange = (event) => {
-    const selectedFiles = Array.from(event.target.files)
-    setFiles(selectedFiles)
-  }
+    const selectedFiles = Array.from(event.target.files);
+    setFiles(selectedFiles);
+  };
 
   const makeContent = (obj) => {
-    let updatedText = emailContent
-    const placeholders = emailContent.match(/{{\w+}}/g)
+    let updatedText = emailContent;
+    const placeholders = emailContent.match(/{{\w+}}/g);
 
     if (placeholders) {
       placeholders.forEach((placeholder) => {
         const propName = placeholder
           .substring(2, placeholder.length - 2)
-          .toLowerCase()
+          .toLowerCase();
 
-        updatedText = updatedText.replace(placeholder, obj[propName] || "")
-      })
+        updatedText = updatedText.replace(placeholder, obj[propName] || "");
+      });
     }
-    return updatedText
-  }
+    return updatedText;
+  };
 
   const selectAttachment = (obj) => {
     const attachmentNames = Object.keys(obj).filter(
       (key) => key.startsWith("attachment") && obj[key] !== ""
-    )
+    );
     const attachments = attachmentNames.map(
       (attachmentName) =>
         files.find((file) => file.name === obj[attachmentName]) || null
-    )
+    );
 
-    return attachments.filter((attachment) => attachment !== null)
-  }
+    return attachments.filter((attachment) => attachment !== null);
+  };
 
   const handlePreview = (e) => {
+    console.log(csvData[0]);
     setSampleEmail((prevState) => ({
       ...prevState,
       fromMail: fromMail,
       subject: subject,
       emailContent: makeContent(csvData[0]),
       attachments: selectAttachment(csvData[0]),
-    }))
+    }));
 
-    handleEmailPreview()
-  }
+    handleEmailPreview();
+  };
 
   useEffect(() => {
     if (confirm) {
       csvData.map((obj) => {
-        const data = new FormData()
-        data.append("fromMail", fromMail)
-        data.append("password", password)
-        data.append("to", obj.email)
-        data.append("subject", subject)
-        data.append("content", makeContent(obj))
+        const data = new FormData();
+        data.append("fromMail", fromMail);
+        data.append("password", password);
+        data.append("to", obj.email);
+        data.append("subject", subject);
+        data.append("content", makeContent(obj));
 
-        const files = selectAttachment(obj)
+        const files = selectAttachment(obj);
 
         files.forEach((file) => {
-          data.append("mailAttachment", file)
-        })
+          data.append("mailAttachment", file);
+        });
 
         const config = {
           method: "post",
           maxBodyLength: Infinity,
-          url: "https://api.buildnship.in/mailman/v1/send-mail",
+          url: "https://api.buildnship.in/mailman/v1/send-mail/",
           headers: { "Content-Type": "multipart/form-data" },
           data: data,
-        }
+        };
+
+        console.log("Sett Ann!");
 
         axios(config)
           .then(function (response) {
-            console.log(response)
+            console.log(response);
           })
           .catch(function (error) {
-            console.log(error)
-          })
-      })
+            console.log(error);
+          });
+
+        setConfirm(false);
+      });
     }
-  }, [confirm])
+  }, [confirm]);
 
   return (
     <div className={styles.background_container}>
@@ -168,7 +173,7 @@ const FileUpload = () => {
           <div className={styles.creds}>
             <input
               onChange={(event) => {
-                setFromMail(event.target.value)
+                setFromMail(event.target.value);
               }}
               type="email"
               value={fromMail}
@@ -178,7 +183,7 @@ const FileUpload = () => {
 
             <input
               onChange={(event) => {
-                setPassword(event.target.value)
+                setPassword(event.target.value);
               }}
               value={password}
               type="password"
@@ -195,9 +200,9 @@ const FileUpload = () => {
                     duration: 9000,
                     position: "top-right",
                     isClosable: true,
-                  })
+                  });
                 } else {
-                  handlePreview()
+                  handlePreview();
                 }
               }}
               className={styles.sent_mail}
@@ -208,7 +213,7 @@ const FileUpload = () => {
           <div className={styles.subject_row}>
             <input
               onChange={(event) => {
-                setSubject(event.target.value)
+                setSubject(event.target.value);
               }}
               type="text"
               value={subject}
@@ -221,7 +226,7 @@ const FileUpload = () => {
           <textarea
             className={styles.mail_content}
             onChange={(event) => {
-              setEmailContent(event.target.value)
+              setEmailContent(event.target.value);
             }}
             value={emailContent}
             placeholder="Mail Content"
@@ -234,10 +239,10 @@ const FileUpload = () => {
               id="file1"
               name="file1"
               onChange={(e) => {
-                setFile(e.target.files[0])
-                handleCsvUpload(e)
+                setFile(e.target.files[0]);
+                handleCsvUpload(e);
                 document.getElementById("file1_label").textContent =
-                  e.target.files[0].name
+                  e.target.files[0].name;
               }}
               required
             />
@@ -255,11 +260,11 @@ const FileUpload = () => {
               name="file2"
               multiple
               onChange={(e) => {
-                handleFileChange(e)
+                handleFileChange(e);
                 const fileNames = Array.from(e.target.files)
                   .map((file) => file.name)
-                  .join(", ")
-                document.getElementById("file2_label").textContent = fileNames
+                  .join(", ");
+                document.getElementById("file2_label").textContent = fileNames;
               }}
             />
             <label htmlFor="file2" id="file2_label">
@@ -269,7 +274,7 @@ const FileUpload = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FileUpload
+export default FileUpload;
