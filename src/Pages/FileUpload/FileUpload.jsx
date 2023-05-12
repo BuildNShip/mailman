@@ -201,7 +201,38 @@ const FileUpload = () => {
                     position: "top-right",
                     isClosable: true,
                   });
+                } else if (
+                  fromMail === "" ||
+                  password === "" ||
+                  subject === "" ||
+                  emailContent === ""
+                ) {
+                  //give a toast message unqiue to each of the above cases
+                  toast.closeAll();
+                  toast({
+                    title: "Please fill all the fields",
+                    status: "error",
+                    duration: 3000,
+                    position: "top-right",
+                    isClosable: true,
+                  });
+                } else if (
+                  !fromMail.match(
+                    //using regex validate the email pattern
+                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                  )
+                ) {
+                  toast.closeAll();
+                  toast({
+                    title: "Please enter a valid email",
+                    status: "error",
+                    duration: 3000,
+                    position: "top-right",
+                    isClosable: true,
+                  });
                 } else {
+                  //using regex validate the email pattern ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+
                   handlePreview();
                 }
               }}
