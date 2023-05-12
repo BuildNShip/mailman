@@ -8,15 +8,18 @@ import { Tooltip } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import EmailPreview from "../../Components/EmailPreview/EmailPreview";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import ReportPage from "../ReportPage/ReportPage";
 
 const FileUpload = () => {
-  const [fromMail, setFromMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailContent, setEmailContent] = useState("");
-  const [subject, setSubject] = useState("");
+  const [fromMail, setFromMail] = useState("test@test.com");
+  const [password, setPassword] = useState("123");
+  const [emailContent, setEmailContent] = useState("123");
+  const [subject, setSubject] = useState("123");
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState();
   const [confirm, setConfirm] = useState(false);
+
+  const [viewReport, setViewReport] = useState(false);
 
   const [sampleEmail, setSampleEmail] = useState({
     fromMail: "",
@@ -110,6 +113,7 @@ const FileUpload = () => {
 
   useEffect(() => {
     if (confirm) {
+      setViewReport(true);
       csvData.map((obj) => {
         const data = new FormData();
         data.append("fromMail", fromMail);
@@ -132,8 +136,6 @@ const FileUpload = () => {
           data: data,
         };
 
-        console.log("Sett Ann!");
-
         axios(config)
           .then(function (response) {
             console.log(response);
@@ -146,8 +148,7 @@ const FileUpload = () => {
       });
     }
   }, [confirm]);
-
-  return (
+  return !viewReport ? (
     <div className={styles.background_container}>
       <EmailPreview
         isOpen={isEmailModalOpen}
@@ -305,6 +306,8 @@ const FileUpload = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <ReportPage />
   );
 };
 
