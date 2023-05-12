@@ -131,6 +131,10 @@ const FileUpload = () => {
           data.append("mailAttachment", file);
         });
 
+        if (!Object.values(obj).every(value => value === '' || value === undefined)){
+
+        
+
         const config = {
           method: "post",
           maxBodyLength: Infinity,
@@ -153,6 +157,7 @@ const FileUpload = () => {
                 ...failureList,
                 response.data.recipient,
               ]);
+              console.log(response.data);
               setFailureCSV((failureCSV) => [...failureCSV, obj]);
             }
           })
@@ -160,6 +165,7 @@ const FileUpload = () => {
             console.log(error);
           })
           .finally(function () {});
+        }
       });
     }
 
