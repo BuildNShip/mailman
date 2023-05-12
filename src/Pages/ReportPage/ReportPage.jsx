@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Progress } from "@chakra-ui/react";
+import { CSVLink } from "react-csv";
 import {
   Table,
   Thead,
@@ -12,14 +13,19 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import styles from "./ReportPage.module.css";
+import { BsFiletypeCsv } from "react-icons/bs";
 
-const ReportPage = ({ totalNumber, successList, failureList }) => {
+const ReportPage = ({
+  successCSV,
+  failureCSV,
+  csvData,
+  totalNumber,
+  successList,
+  failureList,
+}) => {
   useEffect(() => {
-    console.log(successList.length);
-    console.log(failureList.length);
     let progressCount =
       ((successList.length + failureList.length) / totalNumber) * 100;
-    console.log(progressCount);
     setProgress(progressCount);
   });
 
@@ -71,12 +77,33 @@ const ReportPage = ({ totalNumber, successList, failureList }) => {
                   <Table variant="simple">
                     <Thead>
                       <Tr>
-                        <Th style={{ fontSize: "1rem", color: "#ffffff" }}>
-                          Failed List{" "}
-                          <span style={{ color: "#F70000" }}>
-                            {" "}
-                            {failureList.length}
-                          </span>{" "}
+                        <Th
+                          style={{
+                            fontSize: "1rem",
+                            color: "#ffffff",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <p>
+                            Failed List{" "}
+                            <span style={{ color: "#F70000" }}>
+                              {" "}
+                              {failureList.length}
+                            </span>{" "}
+                          </p>
+                          <CSVLink
+                            data={failureCSV}
+                            headers={Object.keys(csvData[0])}
+                            filename={"failureList.csv"}
+                          >
+                            <BsFiletypeCsv
+                              className={styles.csv_icon}
+                              size={25}
+                              style={{ marginLeft: "10px", color: "#FFFFFF" }}
+                            />
+                          </CSVLink>
                         </Th>
                       </Tr>
                     </Thead>
@@ -95,11 +122,32 @@ const ReportPage = ({ totalNumber, successList, failureList }) => {
                   <Table variant="simple">
                     <Thead>
                       <Tr>
-                        <Th style={{ fontSize: "1rem", color: "#ffffff" }}>
-                          Success List{" "}
-                          <span style={{ color: "#38A169" }}>
-                            {successList.length}
-                          </span>
+                        <Th
+                          style={{
+                            fontSize: "1rem",
+                            color: "#ffffff",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <p>
+                            Success List{" "}
+                            <span style={{ color: "rgb(66, 196, 66)" }}>
+                              {successList.length}
+                            </span>
+                          </p>
+                          <CSVLink
+                            data={successCSV}
+                            headers={Object.keys(csvData[0])}
+                            filename={"SuccessList.csv"}
+                          >
+                            <BsFiletypeCsv
+                              className={styles.csv_icon}
+                              size={25}
+                              style={{ marginLeft: "10px", color: "#FFFFFF" }}
+                            />
+                          </CSVLink>
                         </Th>
                       </Tr>
                     </Thead>

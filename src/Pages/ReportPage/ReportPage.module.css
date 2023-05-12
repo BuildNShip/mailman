@@ -87,5 +87,11 @@
   font-weight: 300;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: #38a169;
+  color: rgb(66, 196, 66);
+}
+
+/* CSS code */
+.csv_icon:hover {
+  color: rgb(66, 196, 66) !important;
+  cursor: pointer;
 }

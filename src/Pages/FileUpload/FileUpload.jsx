@@ -17,6 +17,9 @@ const FileUpload = () => {
   const [file, setFile] = useState();
   const [confirm, setConfirm] = useState(false);
 
+  const [successCSV, setSuccessCSV] = useState([]);
+  const [failureCSV, setFailureCSV] = useState([]);
+
   const [failureList, setFailureList] = useState([]);
   const [successList, setSuccessList] = useState([]);
 
@@ -115,6 +118,7 @@ const FileUpload = () => {
       setViewReport(true);
       csvData.map((obj) => {
         const data = new FormData();
+        console.log(csvData);
         data.append("fromMail", fromMail);
         data.append("password", password);
         data.append("to", obj.email);
@@ -143,11 +147,13 @@ const FileUpload = () => {
                 ...successList,
                 response.data.recipient,
               ]);
+              setSuccessCSV((successCSV) => [...successCSV, obj]);
             } else {
               setFailureList((failureList) => [
                 ...failureList,
                 response.data.recipient,
               ]);
+              setFailureCSV((failureCSV) => [...failureCSV, obj]);
             }
           })
           .catch(function (error) {
@@ -293,7 +299,7 @@ const FileUpload = () => {
           </div>
           <div className={styles.attachments}>
             <p className={styles.attachment_label}>
-              Select all the mail Attachements
+              Select all the mail Attachments
             </p>
             <input
               type="file"
@@ -317,9 +323,12 @@ const FileUpload = () => {
     </div>
   ) : (
     <ReportPage
+      csvData={csvData}
       totalNumber={csvData.length}
       successList={successList}
       failureList={failureList}
+      successCSV={successCSV}
+      failureCSV={failureCSV}
     />
   );
 };
