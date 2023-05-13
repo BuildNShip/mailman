@@ -1,0 +1,132 @@
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: #141414;
+  height: 60px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+
+.navbar_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.logo p {
+}
+
+.navbar_button:hover {
+  background-color: #282727;
+
+  opacity: 1;
+  background-image: linear-gradient(
+      #1e1e1e 1.2000000000000002px,
+      transparent 1.2000000000000002px
+    ),
+    linear-gradient(
+      to right,
+      #1e1e1e 1.2000000000000002px,
+      #1a1a1a 1.2000000000000002px
+    );
+  background-size: 24px 24px;
+}
+
+.background_container {
+  background-color: #141414;
+}
+
+/* Main container */
+.main_container {
+  width: 100%;
+
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 20px;
+  font-size: 14px;
+  color: #fff;
+  padding-bottom: 4rem;
+}
+
+.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  height: 3rem;
+  border-top: 1px solid rgb(81, 80, 80);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(0, 0, 0);
+}
+
+.footer a {
+  width: 100px;
+}
+
+.footer a img {
+  width: 100px;
+  height: 60%;
+  margin-left: 40px;
+}
+
+.social_container {
+  width: max-content;
+  height: 100%;
+  display: flex;
+  gap: 15px;
+  margin-right: 20px;
+}
+
+.footer .social_container a {
+  height: 100%;
+  width: max-content;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .footer a img {
+    margin-left: 14px;
+  }
+  .footer .social_container {
+    gap: 8px;
+  }
+}
+
+.help {
+  max-width: 40rem;
+  margin-top: 1.25rem;
+  font-family: "Manrope", sans-serif;
+}
+
+.help_heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #3fbaba;
+}
+
+.help_content {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+}
+
+.help_content span {
+  color: #c5ecec;
+}

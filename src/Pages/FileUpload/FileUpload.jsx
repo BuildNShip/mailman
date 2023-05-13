@@ -8,6 +8,7 @@ import { useToast } from "@chakra-ui/react";
 import EmailPreview from "../../Components/EmailPreview/EmailPreview";
 import { FaInstagram, FaTwitter, FaGithub, FaTelegram } from "react-icons/fa";
 import ReportPage from "../ReportPage/ReportPage";
+import HelpPage from "../HelpPage/HelpPage";
 
 const FileUpload = () => {
   const [fromMail, setFromMail] = useState("");
@@ -25,6 +26,7 @@ const FileUpload = () => {
   const [successList, setSuccessList] = useState([]);
 
   const [viewReport, setViewReport] = useState(false);
+  const [viewHelp, setViewHelp] = useState(false);
 
   const [sampleEmail, setSampleEmail] = useState({
     fromMail: "",
@@ -175,14 +177,14 @@ const FileUpload = () => {
     toast({
       title: "We only support gmail for now",
       status: "info",
-      duration: 9000,
+      duration: 4000,
       isClosable: true,
     });
     toast({
       title: "Make sure to use your App Password as password",
       description: "Always reset your App Password after use",
       status: "info",
-      duration: 9000,
+      duration: 4000,
       isClosable: true,
     });
   }, [confirm]);
@@ -236,7 +238,7 @@ const FileUpload = () => {
                   toast({
                     title: "Upload CSV",
                     status: "error",
-                    duration: 9000,
+                    duration: 4000,
                     position: "top-right",
                     isClosable: true,
                   });
@@ -369,6 +371,8 @@ const FileUpload = () => {
         </div>
       </div>
     </div>
+  ) : viewHelp ? (
+    <HelpPage />
   ) : (
     <ReportPage
       csvData={csvData}
