@@ -8,7 +8,6 @@ import { useToast } from "@chakra-ui/react";
 import EmailPreview from "../../Components/EmailPreview/EmailPreview";
 import { FaInstagram, FaTwitter, FaGithub, FaTelegram } from "react-icons/fa";
 import ReportPage from "../ReportPage/ReportPage";
-import template from "./template.csv";
 
 const FileUpload = () => {
   const [fromMail, setFromMail] = useState("");
@@ -320,7 +319,7 @@ const FileUpload = () => {
             <label htmlFor="file1" id="file1_label">
               Choose File
             </label>
-            <a href={template}>
+            <a href="https://drive.google.com/uc?export=download&id=16lqXzlrcTD5RSDYStyKX7ila3YwZjkSL">
               {" "}
               <p className={styles.download_template}>
                 Download the sample CSV file{" "}
