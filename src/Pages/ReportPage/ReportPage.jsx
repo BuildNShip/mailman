@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Progress } from "@chakra-ui/react";
 import { CSVLink } from "react-csv";
+import { FaInstagram, FaTwitter, FaGithub, FaTelegram } from "react-icons/fa";
 import {
   Table,
   Thead,
@@ -163,6 +164,25 @@ const ReportPage = ({
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className={styles.footer}>
+        <a href="https://buildnship.in/">
+          <img src="/BuildNShip.png" alt="logo" />
+        </a>
+        <div className={styles.social_container}>
+          <a href="https://twitter.com/buildnship/">
+            <FaTwitter size={25} />
+          </a>
+          <a href="https://instagram.com/buildnship?igshid=YmMyMTA2M2Y=">
+            <FaInstagram size={25} />
+          </a>
+          <a href="https://github.com/BuildNShip">
+            <FaGithub size={25} />
+          </a>
+          <a href="https://t.me/buildnship">
+            <FaTelegram size={25} />
+          </a>
         </div>
       </div>
     </div>

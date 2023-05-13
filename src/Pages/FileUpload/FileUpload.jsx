@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import Papa from "papaparse";
 import { useToast } from "@chakra-ui/react";
 import EmailPreview from "../../Components/EmailPreview/EmailPreview";
+import { FaInstagram, FaTwitter, FaGithub, FaTelegram } from "react-icons/fa";
 import ReportPage from "../ReportPage/ReportPage";
+import template from "./template.csv";
 
 const FileUpload = () => {
   const [fromMail, setFromMail] = useState("");
@@ -318,7 +320,7 @@ const FileUpload = () => {
             <label htmlFor="file1" id="file1_label">
               Choose File
             </label>
-            <a href="src\Pages\FileUpload\template.csv">
+            <a href={template}>
               {" "}
               <p className={styles.download_template}>
                 Download the sample CSV file{" "}
@@ -346,6 +348,25 @@ const FileUpload = () => {
               Choose Multiple Files
             </label>
           </div>
+        </div>
+      </div>
+      <div className={styles.footer}>
+        <a href="https://buildnship.in/">
+          <img src="/BuildNShip.png" alt="logo" />
+        </a>
+        <div className={styles.social_container}>
+          <a href="https://twitter.com/buildnship/">
+            <FaTwitter size={25} />
+          </a>
+          <a href="https://instagram.com/buildnship?igshid=YmMyMTA2M2Y=">
+            <FaInstagram size={25} />
+          </a>
+          <a href="https://github.com/BuildNShip">
+            <FaGithub size={25} />
+          </a>
+          <a href="https://t.me/buildnship">
+            <FaTelegram size={25} />
+          </a>
         </div>
       </div>
     </div>
