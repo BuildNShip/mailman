@@ -177,14 +177,14 @@ const FileUpload = () => {
     toast({
       title: "We only support gmail for now",
       status: "info",
-      duration: 4000,
+      duration: 3000,
       isClosable: true,
     });
     toast({
       title: "Make sure to use your App Password as password",
       description: "Always reset your App Password after use",
       status: "info",
-      duration: 4000,
+      duration: 3000,
       isClosable: true,
     });
   }, [confirm]);
@@ -238,7 +238,7 @@ const FileUpload = () => {
                   toast({
                     title: "Upload CSV",
                     status: "error",
-                    duration: 4000,
+                    duration: 3000,
                     position: "top-right",
                     isClosable: true,
                   });

@@ -31,6 +31,8 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
     },
   });
 
+  console.log(emailContent);
+
   return (
     <ChakraProvider theme={customTheme}>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -52,7 +54,7 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
               <Text>
                 <strong>Subject:</strong> {subject}
               </Text>
-              <Text>
+              <Text style={{ whiteSpace: "pre-line" }}>
                 <strong>Content:</strong> {emailContent}
               </Text>
               {attachments && attachments.length > 0 && (
