@@ -348,6 +348,15 @@ const FileUpload = () => {
             <label htmlFor="file2" id="file2_label">
               Choose Multiple Files
             </label>
+            <p
+              onClick={() => {
+                setViewHelp(true);
+                setViewReport(true);
+              }}
+              className={styles.download_template}
+            >
+              Click Here for Help
+            </p>
           </div>
         </div>
       </div>
@@ -372,7 +381,7 @@ const FileUpload = () => {
       </div>
     </div>
   ) : viewHelp ? (
-    <HelpPage />
+    <HelpPage setViewReport={setViewReport} setViewHelp={setViewHelp} />
   ) : (
     <ReportPage
       csvData={csvData}

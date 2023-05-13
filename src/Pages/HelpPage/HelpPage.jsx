@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./HelpPage.module.css";
 import { FaInstagram, FaTwitter, FaGithub, FaTelegram } from "react-icons/fa";
 
-const HelpPage = () => {
+const HelpPage = ({ setViewHelp, setViewReport }) => {
   return (
     <div className={styles.background_container}>
       <div className={styles.main_container}>
@@ -93,6 +93,15 @@ const HelpPage = () => {
                 </p>
               </div>
             </div>
+            <button
+              onClick={() => {
+                setViewHelp(false);
+                setViewReport(false);
+              }}
+              className={styles.sent_mail}
+            >
+              Go Back
+            </button>
           </div>
         </div>
       </div>

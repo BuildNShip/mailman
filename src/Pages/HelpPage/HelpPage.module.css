@@ -109,7 +109,7 @@
 }
 
 .help {
-  max-width: 40rem;
+  max-width: 50rem;
   margin-top: 1.25rem;
   font-family: "Manrope", sans-serif;
 }
@@ -129,4 +129,20 @@
 
 .help_content span {
   color: #c5ecec;
+}
+
+.sent_mail {
+  color: #ffffff;
+  background-color: #2ba6a6;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin: 0.3rem;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-left: 0;
+  width: 10rem;
+  margin-top: 2rem;
 }
