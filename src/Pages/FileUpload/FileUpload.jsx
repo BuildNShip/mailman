@@ -7,6 +7,7 @@ import Papa from "papaparse";
 import { useToast } from "@chakra-ui/react";
 import EmailPreview from "../../Components/EmailPreview/EmailPreview";
 import { FaInstagram, FaTwitter, FaGithub, FaTelegram } from "react-icons/fa";
+import { AiFillInfoCircle } from "react-icons/ai";
 import ReportPage from "../ReportPage/ReportPage";
 import HelpPage from "../HelpPage/HelpPage";
 
@@ -190,195 +191,200 @@ const FileUpload = () => {
   }, [confirm]);
   return !viewReport ? (
     <div className={styles.background_container}>
-      <EmailPreview
-        isOpen={isEmailModalOpen}
-        onClose={handleCloseEmailModal}
-        email={sampleEmail}
-        setConfirm={setConfirm}
-        confirm={confirm}
-      />
+      <>
+        <EmailPreview
+          isOpen={isEmailModalOpen}
+          onClose={handleCloseEmailModal}
+          email={sampleEmail}
+          setConfirm={setConfirm}
+          confirm={confirm}
+        />
 
-      <div className={styles.main_container}>
-        <div className={styles.navbar}>
-          <div className={styles.logo}>
-            <p>MAiL - MAN</p>
+        <div className={styles.main_container}>
+          <div className={styles.navbar}>
+            <div className={styles.logo}>
+              <p>MAiL - MAN</p>
+            </div>
+            <iframe
+              src="https://ghbtns.com/github-btn.html?user=BuildNShip&repo=mailman-frontend&type=star&count=true&size=large"
+              width="170"
+              height="30"
+              title="GitHub"
+            ></iframe>
           </div>
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=BuildNShip&repo=mailman-frontend&type=star&count=true&size=large"
-            width="170"
-            height="30"
-            title="GitHub"
-          ></iframe>
-        </div>
-        <div className={styles.top_header}>
-          <div className={styles.creds}>
-            <input
-              onChange={(event) => {
-                setFromMail(event.target.value);
-              }}
-              type="email"
-              value={fromMail}
-              required
-              placeholder="Enter Your Email Address"
-            />
+          <div className={styles.top_header}>
+            <div className={styles.creds}>
+              <input
+                onChange={(event) => {
+                  setFromMail(event.target.value);
+                }}
+                type="email"
+                value={fromMail}
+                required
+                placeholder="Enter Your Email Address"
+              />
 
-            <input
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-              value={password}
-              type="password"
-              required
-              placeholder="Enter Your Email Password"
-            />
-            <button
-              onClick={() => {
-                //check whether the email and password are valid or not and there is a mail subject and content and the state variables are not empty
-                if (!file) {
-                  toast({
-                    title: "Upload CSV",
-                    status: "error",
-                    duration: 3000,
-                    position: "top-right",
-                    isClosable: true,
-                  });
-                } else if (
-                  fromMail === "" ||
-                  password === "" ||
-                  subject === "" ||
-                  emailContent === ""
-                ) {
-                  //give a toast message unqiue to each of the above cases
-                  toast.closeAll();
-                  toast({
-                    title: "Please fill all the fields",
-                    status: "error",
-                    duration: 3000,
-                    position: "top-right",
-                    isClosable: true,
-                  });
-                } else if (
-                  !fromMail.match(
-                    //using regex validate the email pattern
-                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-                  )
-                ) {
-                  toast.closeAll();
-                  toast({
-                    title: "Please enter a valid email",
-                    status: "error",
-                    duration: 3000,
-                    position: "top-right",
-                    isClosable: true,
-                  });
-                } else {
-                  //using regex validate the email pattern ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+              <input
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+                value={password}
+                type="password"
+                required
+                placeholder="Enter Your Email Password"
+              />
+              <button
+                onClick={() => {
+                  //check whether the email and password are valid or not and there is a mail subject and content and the state variables are not empty
+                  if (!file) {
+                    toast({
+                      title: "Upload CSV",
+                      status: "error",
+                      duration: 3000,
+                      position: "top-right",
+                      isClosable: true,
+                    });
+                  } else if (
+                    fromMail === "" ||
+                    password === "" ||
+                    subject === "" ||
+                    emailContent === ""
+                  ) {
+                    //give a toast message unqiue to each of the above cases
+                    toast.closeAll();
+                    toast({
+                      title: "Please fill all the fields",
+                      status: "error",
+                      duration: 3000,
+                      position: "top-right",
+                      isClosable: true,
+                    });
+                  } else if (
+                    !fromMail.match(
+                      //using regex validate the email pattern
+                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                    )
+                  ) {
+                    toast.closeAll();
+                    toast({
+                      title: "Please enter a valid email",
+                      status: "error",
+                      duration: 3000,
+                      position: "top-right",
+                      isClosable: true,
+                    });
+                  } else {
+                    //using regex validate the email pattern ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
 
-                  handlePreview();
-                }
-              }}
-              className={styles.sent_mail}
-            >
-              Sent Mails
-            </button>
+                    handlePreview();
+                  }
+                }}
+                className={styles.sent_mail}
+              >
+                Sent Mails
+              </button>
+            </div>
+            <div className={styles.subject_row}>
+              <input
+                onChange={(event) => {
+                  setSubject(event.target.value);
+                }}
+                type="text"
+                value={subject}
+                required
+                placeholder="This is the subject of the mail"
+              />
+            </div>
           </div>
-          <div className={styles.subject_row}>
-            <input
+          <div className={styles.mail_body}>
+            <textarea
+              className={styles.mail_content}
               onChange={(event) => {
-                setSubject(event.target.value);
+                setEmailContent(event.target.value);
               }}
-              type="text"
-              value={subject}
-              required
-              placeholder="This is the subject of the mail"
-            />
-          </div>
-        </div>
-        <div className={styles.mail_body}>
-          <textarea
-            className={styles.mail_content}
-            onChange={(event) => {
-              setEmailContent(event.target.value);
-            }}
-            value={emailContent}
-            placeholder="You can enter the content of the mail here, we do support dynamic content. You could use the following syntax to add dynamic content {{column_name}}. For example, if you want to add the name of the person in the mail, you could use {{name}}. The column name should be the same as the column name in the CSV file."
-            required
-          />
-          <div className={styles.attachments}>
-            <p className={styles.attachment_label}>Select the CSV File</p>
-            <input
-              type="file"
-              id="file1"
-              name="file1"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-                handleCsvUpload(e);
-                document.getElementById("file1_label").textContent =
-                  e.target.files[0].name;
-              }}
+              value={emailContent}
+              placeholder="You can enter the content of the mail here, we do support dynamic content. You could use the following syntax to add dynamic content {{column_name}}. For example, if you want to add the name of the person in the mail, you could use {{name}}. The column name should be the same as the column name in the CSV file."
               required
             />
-            <label htmlFor="file1" id="file1_label">
-              Choose File
-            </label>
-            <a href="https://drive.google.com/uc?export=download&id=16lqXzlrcTD5RSDYStyKX7ila3YwZjkSL">
-              {" "}
-              <p className={styles.download_template}>
-                Download the sample CSV file{" "}
+            <div className={styles.attachments}>
+              <p className={styles.attachment_label}>Select the CSV File</p>
+              <input
+                type="file"
+                id="file1"
+                name="file1"
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                  handleCsvUpload(e);
+                  document.getElementById("file1_label").textContent =
+                    e.target.files[0].name;
+                }}
+                required
+              />
+              <label htmlFor="file1" id="file1_label">
+                Choose File
+              </label>
+              <a href="https://drive.google.com/uc?export=download&id=16lqXzlrcTD5RSDYStyKX7ila3YwZjkSL">
+                {" "}
+                <p className={styles.download_template}>
+                  Download the sample CSV file{" "}
+                </p>
+              </a>
+            </div>
+            <div className={styles.attachments}>
+              <p className={styles.attachment_label}>
+                Select all the mail Attachments
               </p>
+              <input
+                type="file"
+                id="file2"
+                name="file2"
+                multiple
+                onChange={(e) => {
+                  handleFileChange(e);
+                  const fileNames = Array.from(e.target.files)
+                    .map((file) => file.name)
+                    .join(", ");
+                  document.getElementById("file2_label").textContent =
+                    fileNames;
+                }}
+              />
+              <label htmlFor="file2" id="file2_label">
+                Choose Multiple Files
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className={styles.button_container}>
+          <button
+            onClick={() => {
+              setViewHelp(true);
+              setViewReport(true);
+            }}
+            className={styles.round_button}
+          >
+            <AiFillInfoCircle size={50} color="#2ba6a6" />
+          </button>
+        </div>
+        <div className={styles.footer}>
+          <a href="https://buildnship.in/">
+            <img src="/BuildNShip.png" alt="logo" />
+          </a>
+          <div className={styles.social_container}>
+            <a href="https://twitter.com/buildnship/">
+              <FaTwitter size={25} />
+            </a>
+            <a href="https://instagram.com/buildnship?igshid=YmMyMTA2M2Y=">
+              <FaInstagram size={25} />
+            </a>
+            <a href="https://github.com/BuildNShip">
+              <FaGithub size={25} />
+            </a>
+            <a href="https://t.me/buildnship">
+              <FaTelegram size={25} />
             </a>
           </div>
-          <div className={styles.attachments}>
-            <p className={styles.attachment_label}>
-              Select all the mail Attachments
-            </p>
-            <input
-              type="file"
-              id="file2"
-              name="file2"
-              multiple
-              onChange={(e) => {
-                handleFileChange(e);
-                const fileNames = Array.from(e.target.files)
-                  .map((file) => file.name)
-                  .join(", ");
-                document.getElementById("file2_label").textContent = fileNames;
-              }}
-            />
-            <label htmlFor="file2" id="file2_label">
-              Choose Multiple Files
-            </label>
-            <p
-              onClick={() => {
-                setViewHelp(true);
-                setViewReport(true);
-              }}
-              className={styles.download_template}
-            >
-              Click Here for Help
-            </p>
-          </div>
         </div>
-      </div>
-      <div className={styles.footer}>
-        <a href="https://buildnship.in/">
-          <img src="/BuildNShip.png" alt="logo" />
-        </a>
-        <div className={styles.social_container}>
-          <a href="https://twitter.com/buildnship/">
-            <FaTwitter size={25} />
-          </a>
-          <a href="https://instagram.com/buildnship?igshid=YmMyMTA2M2Y=">
-            <FaInstagram size={25} />
-          </a>
-          <a href="https://github.com/BuildNShip">
-            <FaGithub size={25} />
-          </a>
-          <a href="https://t.me/buildnship">
-            <FaTelegram size={25} />
-          </a>
-        </div>
-      </div>
+      </>
     </div>
   ) : viewHelp ? (
     <HelpPage setViewReport={setViewReport} setViewHelp={setViewHelp} />

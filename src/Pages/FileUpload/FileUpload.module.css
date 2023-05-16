@@ -260,3 +260,18 @@ button[type="submit"]:hover {
     gap: 8px;
   }
 }
+
+.button_container {
+  position: fixed;
+  bottom: 75px;
+  right: 10px;
+}
+
+.round_button {
+  border-radius: 100%;
+  padding: 10px 20px;
+  background-color: #141414;
+  color: #008080;
+  border: none;
+  font-size: 16px;
+}
