@@ -231,7 +231,7 @@ const FileUpload = () => {
                 value={password}
                 type="password"
                 required
-                placeholder="Enter Your Email Password"
+                placeholder="Enter Your Email App Password"
               />
               <button
                 onClick={() => {
