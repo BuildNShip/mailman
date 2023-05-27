@@ -64,7 +64,7 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
                 </Text>
               )}
 
-              <Stack direction="row" alignItems="center">
+              {/* <Stack direction="row" alignItems="center">
                 {attachments &&
                   attachments.map((attachment, index) => (
                     <Box key={index} className="attachments">
@@ -78,7 +78,7 @@ const EmailPreview = ({ isOpen, onClose, email, setConfirm, confirm }) => {
                       />
                     </Box>
                   ))}
-              </Stack>
+              </Stack> */}
             </Stack>
           </ModalBody>
 
