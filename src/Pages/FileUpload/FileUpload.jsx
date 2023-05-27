@@ -4,7 +4,7 @@ import styles from "./FileUpload.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Papa from "papaparse";
-import { useToast } from "@chakra-ui/react";
+import { useTimeout, useToast } from "@chakra-ui/react";
 import EmailPreview from "../../Components/EmailPreview/EmailPreview";
 import { FaInstagram, FaTwitter, FaGithub, FaTelegram } from "react-icons/fa";
 import { AiFillInfoCircle } from "react-icons/ai";
@@ -127,51 +127,58 @@ const FileUpload = () => {
   useEffect(() => {
     if (confirm) {
       setViewReport(true);
-      csvData.map((obj) => {
-        const data = new FormData();
-        console.log(csvData);
-        data.append("fromMail", fromMail);
-        data.append("password", password);
-        data.append("to", obj.email);
-        data.append("subject", subject);
-        data.append("content", makeContent(obj));
 
-        const files = selectAttachment(obj);
+      csvData.map((obj, index) => {
+        setTimeout(() => {
+          const data = new FormData();
+          console.log("Test");
+          console.log(csvData);
+          data.append("fromMail", fromMail);
+          data.append("password", password);
+          data.append("to", obj.email);
+          data.append("subject", subject);
+          data.append("content", makeContent(obj));
 
-        files.forEach((file) => {
-          data.append("mailAttachment", file);
-        });
+          const files = selectAttachment(obj);
 
-        const config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: "https://api.buildnship.in/mailman/v1/send-mail/",
-          headers: { "Content-Type": "multipart/form-data" },
-          data: data,
-        };
+          files.forEach((file) => {
+            data.append("mailAttachment", file);
+          });
 
-        axios(config)
-          .then(function (response) {
-            if (!response.data.hasError) {
-              //update the success number in the state variable
-              setSuccessList((successList) => [
-                ...successList,
-                response.data.recipient,
-              ]);
-              setSuccessCSV((successCSV) => [...successCSV, obj]);
-            } else {
-              setFailureList((failureList) => [
-                ...failureList,
-                response.data.recipient,
-              ]);
+          const config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: "https://api.buildnship.in/mailman/v1/send-mail/",
+            headers: { "Content-Type": "multipart/form-data" },
+            data: data,
+          };
+
+          axios(config)
+            .then(function (response) {
+              if (!response.data.hasError) {
+                //update the success number in the state variable
+                setSuccessList((successList) => [
+                  ...successList,
+                  response.data.recipient,
+                ]);
+                setSuccessCSV((successCSV) => [...successCSV, obj]);
+              } else {
+                setFailureList((failureList) => [
+                  ...failureList,
+                  response.data.recipient,
+                ]);
+                console.log(response.data);
+                setFailureCSV((failureCSV) => [...failureCSV, obj]);
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+              setFailureList((failureList) => [...failureList, obj.email]);
               console.log(response.data);
               setFailureCSV((failureCSV) => [...failureCSV, obj]);
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-          .finally(function () {});
+            })
+            .finally(function () {});
+        }, index * 2000);
       });
     }
 

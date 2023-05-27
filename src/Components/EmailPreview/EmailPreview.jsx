@@ -10,6 +10,7 @@ import {
   ModalFooter,
   Text,
   Stack,
+  Box,
 } from "@chakra-ui/react";
 import { extendTheme, ChakraProvider } from "@chakra-ui/react";
 
