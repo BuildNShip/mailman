@@ -28,6 +28,7 @@ const FileUpload = () => {
 
   const [viewReport, setViewReport] = useState(false);
   const [viewHelp, setViewHelp] = useState(false);
+  const [stopMails, setStopMails] = useState(false);
 
   const [sampleEmail, setSampleEmail] = useState({
     fromMail: "",
@@ -125,60 +126,87 @@ const FileUpload = () => {
   };
 
   useEffect(() => {
+    let shouldStop = false;
     if (confirm) {
       setViewReport(true);
-
+      console.log(stopMails)
       csvData.map((obj, index) => {
-        setTimeout(() => {
-          const data = new FormData();
-          console.log("Test");
-          console.log(csvData);
-          data.append("fromMail", fromMail);
-          data.append("password", password);
-          data.append("to", obj.email);
-          data.append("subject", subject);
-          data.append("content", makeContent(obj));
+        if(!stopMails){
+          setTimeout(() => {
+            if(!shouldStop){
+            console.log(stopMails)
+            const data = new FormData();
+            console.log("Test");
+            console.log(csvData);
+            data.append("fromMail", fromMail);
+            data.append("password", password);
+            data.append("to", obj.email);
+            data.append("subject", subject);
+            data.append("content", makeContent(obj));
+  
+            const files = selectAttachment(obj);
+  
+            files.forEach((file) => {
+              data.append("mailAttachment", file);
+            });
+  
+            const config = {
+              method: "post",
+              maxBodyLength: Infinity,
+              url: "https://api.buildnship.in/mailman/v1/send-mail/",
+              headers: { "Content-Type": "multipart/form-data" },
+              data: data,
+            };
+  
+            axios(config)
+              .then(function (response) {
+                if (!response.data.hasError) {
+                  //update the success number in the state variable
+                  setSuccessList((successList) => [
+                    ...successList,
+                    response.data.recipient,
+                  ]);
+                  setSuccessCSV((successCSV) => [...successCSV, obj]);
+                } else {
+                  setFailureList((failureList) => [
+                    ...failureList,
+                    response.data.recipient,
+                  ]);
+                  console.log(response.data);
+                  setFailureCSV((failureCSV) => [...failureCSV, obj]);
+  
+                  if(response.data.statusCode === 1001)
+                  {
+                    shouldStop = true;
+                    for(let i=index+1;i<csvData.length;i++)
+                    {
+                      setFailureList((failureList) => [...failureList, csvData[i].email]);
+                      console.log(response.data);
+                      setFailureCSV((failureCSV) => [...failureCSV, csvData[i]]);
+                    }
 
-          const files = selectAttachment(obj);
-
-          files.forEach((file) => {
-            data.append("mailAttachment", file);
-          });
-
-          const config = {
-            method: "post",
-            maxBodyLength: Infinity,
-            url: "https://api.buildnship.in/mailman/v1/send-mail/",
-            headers: { "Content-Type": "multipart/form-data" },
-            data: data,
-          };
-
-          axios(config)
-            .then(function (response) {
-              if (!response.data.hasError) {
-                //update the success number in the state variable
-                setSuccessList((successList) => [
-                  ...successList,
-                  response.data.recipient,
-                ]);
-                setSuccessCSV((successCSV) => [...successCSV, obj]);
-              } else {
-                setFailureList((failureList) => [
-                  ...failureList,
-                  response.data.recipient,
-                ]);
+               
+                      toast({
+                        title: "Mail Senting Failed! Try Again Later",
+                        status: "error",
+                        duration: 3000,
+                        isClosable: true,
+                      });
+                    
+                  }
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+                setFailureList((failureList) => [...failureList, obj.email]);
                 console.log(response.data);
                 setFailureCSV((failureCSV) => [...failureCSV, obj]);
-              }
-            })
-            .catch(function (error) {
-              console.log(error);
-              setFailureList((failureList) => [...failureList, obj.email]);
-              console.log(response.data);
-              setFailureCSV((failureCSV) => [...failureCSV, obj]);
-            })
-            .finally(function () {});
-        }, index * 2000);
+              })
+              .finally(function () {});
+            }
+          }, index * 2000);
+        }
+        
       });
     }
 
