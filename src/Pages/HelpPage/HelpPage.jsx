@@ -102,6 +102,13 @@ const HelpPage = ({ setViewHelp, setViewReport }) => {
             >
               Go Back
             </button>
+            <a
+              href="https://www.youtube.com/watch?v=QvknPLwg7q8&t"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className={styles.sent_mail}>Watch Video</button>
+            </a>
           </div>
         </div>
       </div>
