@@ -129,84 +129,85 @@ const FileUpload = () => {
     let shouldStop = false;
     if (confirm) {
       setViewReport(true);
-      console.log(stopMails)
+      console.log(stopMails);
       csvData.map((obj, index) => {
-        if(!stopMails){
+        if (!stopMails) {
           setTimeout(() => {
-            if(!shouldStop){
-            console.log(stopMails)
-            const data = new FormData();
-            console.log("Test");
-            console.log(csvData);
-            data.append("fromMail", fromMail);
-            data.append("password", password);
-            data.append("to", obj.email);
-            data.append("subject", subject);
-            data.append("content", makeContent(obj));
-  
-            const files = selectAttachment(obj);
-  
-            files.forEach((file) => {
-              data.append("mailAttachment", file);
-            });
-  
-            const config = {
-              method: "post",
-              maxBodyLength: Infinity,
-              url: "https://api.buildnship.in/mailman/v1/send-mail/",
-              headers: { "Content-Type": "multipart/form-data" },
-              data: data,
-            };
-  
-            axios(config)
-              .then(function (response) {
-                if (!response.data.hasError) {
-                  //update the success number in the state variable
-                  setSuccessList((successList) => [
-                    ...successList,
-                    response.data.recipient,
-                  ]);
-                  setSuccessCSV((successCSV) => [...successCSV, obj]);
-                } else {
-                  setFailureList((failureList) => [
-                    ...failureList,
-                    response.data.recipient,
-                  ]);
-                  console.log(response.data);
-                  setFailureCSV((failureCSV) => [...failureCSV, obj]);
-  
-                  if(response.data.statusCode === 1001)
-                  {
-                    shouldStop = true;
-                    for(let i=index+1;i<csvData.length;i++)
-                    {
-                      setFailureList((failureList) => [...failureList, csvData[i].email]);
-                      console.log(response.data);
-                      setFailureCSV((failureCSV) => [...failureCSV, csvData[i]]);
-                    }
+            if (!shouldStop) {
+              console.log(stopMails);
+              const data = new FormData();
+              console.log("Test");
+              console.log(csvData);
+              data.append("fromMail", fromMail);
+              data.append("password", password);
+              data.append("to", obj.email);
+              data.append("subject", subject);
+              data.append("content", makeContent(obj));
 
-               
+              const files = selectAttachment(obj);
+
+              files.forEach((file) => {
+                data.append("mailAttachment", file);
+              });
+
+              const config = {
+                method: "post",
+                maxBodyLength: Infinity,
+                url: "https://api.buildnship.in/mailman/v1/send-mail/",
+                headers: { "Content-Type": "multipart/form-data" },
+                data: data,
+              };
+
+              axios(config)
+                .then(function (response) {
+                  if (!response.data.hasError) {
+                    //update the success number in the state variable
+                    setSuccessList((successList) => [
+                      ...successList,
+                      response.data.recipient,
+                    ]);
+                    setSuccessCSV((successCSV) => [...successCSV, obj]);
+                  } else {
+                    setFailureList((failureList) => [
+                      ...failureList,
+                      response.data.recipient,
+                    ]);
+                    console.log(response.data);
+                    setFailureCSV((failureCSV) => [...failureCSV, obj]);
+
+                    if (response.data.statusCode === 1001) {
+                      shouldStop = true;
+                      for (let i = index + 1; i < csvData.length; i++) {
+                        setFailureList((failureList) => [
+                          ...failureList,
+                          csvData[i].email,
+                        ]);
+                        console.log(response.data);
+                        setFailureCSV((failureCSV) => [
+                          ...failureCSV,
+                          csvData[i],
+                        ]);
+                      }
+
                       toast({
                         title: "Mail Senting Failed! Try Again Later",
                         status: "error",
                         duration: 3000,
                         isClosable: true,
                       });
-                    
+                    }
                   }
-                }
-              })
-              .catch(function (error) {
-                console.log(error);
-                setFailureList((failureList) => [...failureList, obj.email]);
-                console.log(response.data);
-                setFailureCSV((failureCSV) => [...failureCSV, obj]);
-              })
-              .finally(function () {});
+                })
+                .catch(function (error) {
+                  console.log(error);
+                  setFailureList((failureList) => [...failureList, obj.email]);
+                  console.log(response.data);
+                  setFailureCSV((failureCSV) => [...failureCSV, obj]);
+                })
+                .finally(function () {});
             }
           }, index * 2000);
         }
-        
       });
     }
 
@@ -238,14 +239,26 @@ const FileUpload = () => {
         <div className={styles.main_container}>
           <div className={styles.navbar}>
             <div className={styles.logo}>
-              <p>MAiL - MAN</p>
+              <p>MailMan</p>
+              <iframe
+                src="https://ghbtns.com/github-btn.html?user=BuildNShip&repo=mailman-frontend&type=star&count=true&size=large"
+                width="70"
+                height="30"
+                title="GitHub"
+              ></iframe>
             </div>
-            <iframe
-              src="https://ghbtns.com/github-btn.html?user=BuildNShip&repo=mailman-frontend&type=star&count=true&size=large"
-              width="170"
-              height="30"
-              title="GitHub"
-            ></iframe>
+
+            <a
+              href="https://www.producthunt.com/posts/mailman-a3c14988-8f3b-4d97-9f19-2a3b21353002?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-mailman&#0045;a3c14988&#0045;8f3b&#0045;4d97&#0045;9f19&#0045;2a3b21353002"
+              target="_blank"
+            >
+              <img
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=400162&theme=dark"
+                alt="MailMan - One&#0032;click&#0044;&#0032;many&#0032;mails | Product Hunt"
+                // style="width: 250px; height: 54px;"
+                height="44"
+              />
+            </a>
           </div>
           <div className={styles.top_header}>
             <div className={styles.creds}>
