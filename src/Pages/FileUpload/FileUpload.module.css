@@ -193,7 +193,7 @@ button[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100vh - 292px);
+  height: calc(100vh - 305px);
 }
 
 .attachment_label {
